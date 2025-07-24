@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useKV } from '@github/spark/hooks';
 import { Recipe, RECIPE_CATEGORIES } from '@/lib/types';
 import { filterRecipes } from '@/lib/recipe-utils';
@@ -26,6 +26,13 @@ function App() {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
   const [deletingRecipe, setDeletingRecipe] = useState<Recipe | null>(null);
+
+  // Automatically load sample recipes if no recipes exist
+  useEffect(() => {
+    if (recipes.length === 0) {
+      setRecipes(SAMPLE_RECIPES);
+    }
+  }, [recipes.length, setRecipes]);
 
   const filteredRecipes = filterRecipes(recipes, searchTerm, selectedCategory === 'all' ? undefined : selectedCategory);
 
@@ -82,6 +89,11 @@ function App() {
   const handleLoadSampleRecipes = () => {
     setRecipes(SAMPLE_RECIPES);
     toast.success('Sample recipes loaded!');
+  };
+
+  const handleClearAllRecipes = () => {
+    setRecipes([]);
+    toast.success('All recipes cleared!');
   };
 
   return (
@@ -153,7 +165,10 @@ function App() {
               </Button>
               <Button variant="outline" onClick={handleLoadSampleRecipes}>
                 <Sparkle size={16} />
-                Try Sample Recipes
+                Load Sample Recipes
+              </Button>
+              <Button variant="outline" onClick={handleClearAllRecipes}>
+                Clear All Recipes
               </Button>
             </div>
           </div>
