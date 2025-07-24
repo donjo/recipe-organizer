@@ -18,7 +18,7 @@ import { toast } from 'sonner';
 function App() {
   const [recipes, setRecipes] = useKV<Recipe[]>('recipes', []);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [showForm, setShowForm] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
   const [showCooking, setShowCooking] = useState(false);
@@ -27,7 +27,7 @@ function App() {
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
   const [deletingRecipe, setDeletingRecipe] = useState<Recipe | null>(null);
 
-  const filteredRecipes = filterRecipes(recipes, searchTerm, selectedCategory || undefined);
+  const filteredRecipes = filterRecipes(recipes, searchTerm, selectedCategory === 'all' ? undefined : selectedCategory);
 
   const handleSaveRecipe = (recipe: Recipe) => {
     setRecipes(currentRecipes => {
@@ -122,7 +122,7 @@ function App() {
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 {RECIPE_CATEGORIES.map(category => (
                   <SelectItem key={category} value={category}>
                     {category}
@@ -167,7 +167,7 @@ function App() {
             <p className="text-muted-foreground mb-6">
               Try adjusting your search terms or category filter
             </p>
-            <Button variant="outline" onClick={() => { setSearchTerm(''); setSelectedCategory(''); }}>
+            <Button variant="outline" onClick={() => { setSearchTerm(''); setSelectedCategory('all'); }}>
               Clear Filters
             </Button>
           </div>
@@ -176,7 +176,7 @@ function App() {
           <div>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold">
-                {selectedCategory || searchTerm 
+                {selectedCategory !== 'all' || searchTerm 
                   ? `${filteredRecipes.length} recipe${filteredRecipes.length !== 1 ? 's' : ''} found`
                   : `${recipes.length} recipe${recipes.length !== 1 ? 's' : ''}`
                 }
