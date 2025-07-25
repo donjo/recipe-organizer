@@ -43,16 +43,21 @@ export interface Database {
 }
 
 // Create database connection URL
-const host = Deno.env.get('DATABASE_HOST') || 'localhost';
-const port = Deno.env.get('DATABASE_PORT') || '5432';
-const user = Deno.env.get('DATABASE_USER') || 'johndonmoyer';
-const password = Deno.env.get('DATABASE_PASSWORD') || '';
-const database = Deno.env.get('DATABASE_NAME') || 'recipe_organizer';
+// Support both DATABASE_URL (production) and individual variables (local dev)
+let connectionString = Deno.env.get('DATABASE_URL');
 
-// Build connection string
-const connectionString = password 
-  ? `postgres://${user}:${password}@${host}:${port}/${database}`
-  : `postgres://${user}@${host}:${port}/${database}`;
+if (!connectionString) {
+  const host = Deno.env.get('DATABASE_HOST') || 'localhost';
+  const port = Deno.env.get('DATABASE_PORT') || '5432';
+  const user = Deno.env.get('DATABASE_USER') || 'johndonmoyer';
+  const password = Deno.env.get('DATABASE_PASSWORD') || '';
+  const database = Deno.env.get('DATABASE_NAME') || 'recipe_organizer';
+
+  // Build connection string from individual components
+  connectionString = password 
+    ? `postgres://${user}:${password}@${host}:${port}/${database}`
+    : `postgres://${user}@${host}:${port}/${database}`;
+}
 
 // Create postgres client
 const sql = postgres(connectionString, {

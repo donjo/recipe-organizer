@@ -4,6 +4,7 @@
     "dev": "deno run -A npm:vite",
     "build": "deno run -A npm:vite build",
     "preview": "deno run -A npm:vite preview",
+    "start": "NODE_ENV=production deno run --allow-net --allow-read --allow-write --allow-env src/server.ts",
     "migrate:up": "deno run --allow-net --allow-read --allow-env src/db/migrate.ts up",
     "migrate:down": "deno run --allow-net --allow-read --allow-env src/db/migrate.ts down"
   },
