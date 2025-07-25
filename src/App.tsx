@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useKV } from '@github/spark/hooks';
+import { useRecipes } from '@/hooks/useRecipes';
 import { Recipe, RECIPE_CATEGORIES } from '@/lib/types';
 import { filterRecipes } from '@/lib/recipe-utils';
 import { SAMPLE_RECIPES } from '@/lib/sample-recipes';
@@ -12,11 +12,19 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Toaster } from '@/components/ui/sonner';
-import { ChefHat, Plus, Search, Sparkle } from '@phosphor-icons/react';
+import { 
+  ChefHat, 
+  Plus, 
+  MagnifyingGlass, 
+  Sparkle 
+} from '@phosphor-icons/react';
+
+// Use aliases for cleaner code
+const Search = MagnifyingGlass;
 import { toast } from 'sonner';
 
 function App() {
-  const [recipes, setRecipes] = useKV<Recipe[]>('recipes', []);
+  const { recipes, loading, error, saveRecipe, deleteRecipe, loadSampleRecipes, clearAllRecipes } = useRecipes();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [showForm, setShowForm] = useState(false);
@@ -27,29 +35,16 @@ function App() {
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
   const [deletingRecipe, setDeletingRecipe] = useState<Recipe | null>(null);
 
-  // Automatically load sample recipes if no recipes exist
-  useEffect(() => {
-    if (recipes.length === 0) {
-      setRecipes(SAMPLE_RECIPES);
-    }
-  }, [recipes.length, setRecipes]);
-
   const filteredRecipes = filterRecipes(recipes, searchTerm, selectedCategory === 'all' ? undefined : selectedCategory);
 
-  const handleSaveRecipe = (recipe: Recipe) => {
-    setRecipes(currentRecipes => {
-      const existingIndex = currentRecipes.findIndex(r => r.id === recipe.id);
-      if (existingIndex >= 0) {
-        const updated = [...currentRecipes];
-        updated[existingIndex] = recipe;
-        return updated;
-      } else {
-        return [...currentRecipes, recipe];
-      }
-    });
-    
-    toast.success(editingRecipe ? 'Recipe updated!' : 'Recipe added!');
-    setEditingRecipe(null);
+  const handleSaveRecipe = async (recipe: Recipe) => {
+    try {
+      await saveRecipe(recipe);
+      toast.success(editingRecipe ? 'Recipe updated!' : 'Recipe added!');
+      setEditingRecipe(null);
+    } catch (error) {
+      toast.error(error.message || 'Failed to save recipe');
+    }
   };
 
   const handleSelectRecipe = (recipe: Recipe) => {
@@ -69,10 +64,14 @@ function App() {
     setShowDeleteDialog(true);
   };
 
-  const handleConfirmDelete = (recipe: Recipe) => {
-    setRecipes(currentRecipes => currentRecipes.filter(r => r.id !== recipe.id));
-    toast.success('Recipe deleted');
-    setDeletingRecipe(null);
+  const handleConfirmDelete = async (recipe: Recipe) => {
+    try {
+      await deleteRecipe(recipe.id);
+      toast.success('Recipe deleted');
+      setDeletingRecipe(null);
+    } catch (error) {
+      toast.error(error.message || 'Failed to delete recipe');
+    }
   };
 
   const handleStartCooking = (recipe: Recipe) => {
@@ -86,15 +85,51 @@ function App() {
     setShowForm(true);
   };
 
-  const handleLoadSampleRecipes = () => {
-    setRecipes(SAMPLE_RECIPES);
-    toast.success('Sample recipes loaded!');
+  const handleLoadSampleRecipes = async () => {
+    try {
+      await loadSampleRecipes(SAMPLE_RECIPES);
+      toast.success('Sample recipes loaded!');
+    } catch (error) {
+      toast.error(error.message || 'Failed to load sample recipes');
+    }
   };
 
-  const handleClearAllRecipes = () => {
-    setRecipes([]);
-    toast.success('All recipes cleared!');
+  const handleClearAllRecipes = async () => {
+    try {
+      await clearAllRecipes();
+      toast.success('All recipes cleared!');
+    } catch (error) {
+      toast.error(error.message || 'Failed to clear recipes');
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 animate-pulse">
+            <ChefHat size={24} className="text-primary" />
+          </div>
+          <p className="text-muted-foreground">Loading recipes...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <div className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center mx-auto mb-4">
+            <ChefHat size={24} className="text-destructive" />
+          </div>
+          <h2 className="text-xl font-semibold mb-2">Database Connection Error</h2>
+          <p className="text-muted-foreground mb-4">{error}</p>
+          <p className="text-sm text-muted-foreground">Please ensure PostgreSQL is running and your .env file is configured correctly.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

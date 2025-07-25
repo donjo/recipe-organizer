@@ -1,22 +1,30 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import deno from "@deno/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react-swc";
-import { defineConfig, PluginOption } from "vite";
+import { resolve } from 'node:path';
 
-import sparkPlugin from "@github/spark/spark-vite-plugin";
-import createIconImportProxy from "@github/spark/vitePhosphorIconProxyPlugin";
-import { resolve } from 'path'
-
-const projectRoot = process.env.PROJECT_ROOT || import.meta.dirname
+const projectRoot = process.env.PROJECT_ROOT || import.meta.dirname;
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    port: 5173,
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+      },
+    },
+  },
   plugins: [
-    react(),
+    react(), 
+    deno(),
     tailwindcss(),
-    // DO NOT REMOVE
-    createIconImportProxy() as PluginOption,
-    sparkPlugin() as PluginOption,
   ],
+  optimizeDeps: {
+    include: ["react/jsx-runtime"],
+  },
   resolve: {
     alias: {
       '@': resolve(projectRoot, 'src')
