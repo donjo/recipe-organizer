@@ -59,12 +59,19 @@ deno task start
 
 ## 🚀 Platform-Specific Instructions
 
-### Deno Deploy
-1. Connect your GitHub repository
-2. Select "Build step": `deno task build`
-3. Select "Entrypoint": `src/server.ts`
-4. Add environment variables in the Deno Deploy dashboard
+### Deno Deploy (Recommended)
+1. Go to https://dash.deno.com and click "New Project"
+2. Connect your GitHub repository
+3. Configure build settings:
+   - **Build Command**: `deno task build`
+   - **Build Output Directory**: `dist`
+   - **Entry Point**: `src/server.ts`
+4. Add environment variables:
+   - `DATABASE_URL`: Your PostgreSQL connection string
+   - `NODE_ENV`: `production`
 5. Deploy!
+
+> **Note**: See `DENO_DEPLOY_CONFIG.md` for detailed configuration guide.
 
 ### Railway
 1. Connect your GitHub repository

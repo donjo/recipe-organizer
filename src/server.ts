@@ -94,6 +94,11 @@ api.post('/recipes/bulk', async (c) => {
   }
 });
 
+// Health check endpoint
+app.get('/health', (c) => {
+  return c.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Mount API routes
 app.route('/api', api);
 
@@ -117,8 +122,37 @@ if (isDev) {
   });
 } else {
   // In production, serve built files
-  app.use('/*', serveStatic({ root: './dist' }));
-  app.get('/*', serveStatic({ path: './dist/index.html' }));
+  // First, try to serve static files (JS, CSS, images, etc.)
+  app.use('/*', async (c, next) => {
+    const path = c.req.path;
+    
+    // Skip API and health routes
+    if (path.startsWith('/api') || path === '/health') {
+      return next();
+    }
+    
+    // Try to serve the exact file if it exists
+    if (path !== '/') {
+      try {
+        const filePath = `./dist${path}`;
+        const stat = await Deno.stat(filePath);
+        if (stat.isFile) {
+          return serveStatic({ root: './dist' })(c, next);
+        }
+      } catch {
+        // File doesn't exist, continue to next handler
+      }
+    }
+    
+    // For all other routes, serve index.html (SPA routing)
+    try {
+      const html = await Deno.readTextFile('./dist/index.html');
+      return c.html(html);
+    } catch (error) {
+      console.error('Failed to serve index.html:', error);
+      return c.text('Frontend not built. Run "deno task build" first.', 404);
+    }
+  });
 }
 
 const port = parseInt(Deno.env.get('PORT') || '3000');
