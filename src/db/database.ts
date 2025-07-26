@@ -77,19 +77,29 @@ if (!connectionString) {
 // Neon requires SSL connections in production
 const isProduction = Deno.env.get('DENO_DEPLOYMENT_ID') !== undefined;
 
-// TEMPORARILY DISABLE SSL TO TEST CONNECTION
-console.log('⚠️  TESTING: SSL completely disabled for connection testing');
-
-// Remove any SSL parameters from connection string
-connectionString = connectionString.replace(/[?&]sslmode=[^&]+/g, '');
-connectionString = connectionString.replace(/[?&]ssl=[^&]+/g, '');
+// Configure SSL for production (Neon requires SSL)
+if (isProduction) {
+  console.log('🔐 Setting up SSL for Neon production database');
+  
+  // Ensure sslmode=require is in the connection string
+  if (!connectionString.includes('sslmode=')) {
+    if (connectionString.includes('?')) {
+      connectionString += '&sslmode=require';
+    } else {
+      connectionString += '?sslmode=require';
+    }
+    console.log('🔗 Added sslmode=require to connection string');
+  } else {
+    console.log('🔗 Connection string already has SSL mode configured');
+  }
+}
 
 const postgresConfig = {
   max: 10,
-  ssl: false, // Completely disable SSL
+  // Let the connection string handle SSL configuration
 };
 
-console.log('🔐 SSL config: DISABLED for testing');
+console.log('🔐 SSL config: Using connection string parameters');
 
 console.log('🔗 Final connection setup complete');
 const sql = postgres(connectionString, postgresConfig);
