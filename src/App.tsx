@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecipes } from "@/hooks/useRecipes";
 import { Recipe, RECIPE_CATEGORIES } from "@/lib/types";
 import { filterRecipes } from "@/lib/recipe-utils";

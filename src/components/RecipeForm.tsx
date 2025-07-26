@@ -1,24 +1,24 @@
 import { useState } from "react";
-import { Ingredient, Recipe, RECIPE_CATEGORIES } from "@/lib/types";
-import { generateId } from "@/lib/recipe-utils";
+import { Ingredient, Recipe, RECIPE_CATEGORIES } from "@/lib/types.ts";
+import { generateId } from "@/lib/recipe-utils.ts";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+} from "@/components/ui/dialog.tsx";
+import { Button } from "@/components/ui/button.tsx";
+import { Input } from "@/components/ui/input.tsx";
+import { Textarea } from "@/components/ui/textarea.tsx";
+import { Label } from "@/components/ui/label.tsx";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+} from "@/components/ui/select.tsx";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.tsx";
 import { Plus, Trash } from "@phosphor-icons/react";
 
 interface RecipeFormProps {

@@ -88,7 +88,6 @@ if (!connectionString) {
 
 // Create postgres client
 // Neon requires SSL connections in production
-const isProduction = Deno.env.get("DENO_DEPLOYMENT_ID") !== undefined;
 
 // Create pg pool - this is what works with Neon in Deploy
 console.log("🔗 Creating pg connection pool");

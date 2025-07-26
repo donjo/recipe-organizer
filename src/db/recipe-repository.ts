@@ -1,5 +1,5 @@
 import { db } from "./database.ts";
-import { Ingredient, Recipe } from "../lib/types.ts";
+import { Recipe } from "../lib/types.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export class RecipeRepository {

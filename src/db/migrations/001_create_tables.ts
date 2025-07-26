@@ -1,5 +1,6 @@
 import { Kysely, sql } from "kysely";
 
+// deno-lint-ignore no-explicit-any
 export async function up(db: Kysely<any>): Promise<void> {
   // Create recipes table
   await db.schema
@@ -71,6 +72,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     .execute();
 }
 
+// deno-lint-ignore no-explicit-any
 export async function down(db: Kysely<any>): Promise<void> {
   await db.schema.dropTable("instructions").execute();
   await db.schema.dropTable("ingredients").execute();

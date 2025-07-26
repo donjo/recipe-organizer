@@ -139,6 +139,7 @@ export function CookingMode({ recipe, open, onClose }: CookingModeProps) {
             <div className="space-y-2">
               {recipe.instructions.map((instruction, index) => (
                 <button
+                  type="button"
                   key={index}
                   onClick={() => setCurrentStep(index)}
                   className={`w-full text-left p-3 rounded-lg border transition-colors ${

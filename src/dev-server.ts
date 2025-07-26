@@ -1,6 +1,5 @@
 import { Hono } from "@hono/hono";
 import { cors } from "@hono/hono/cors";
-import { serveStatic } from "@hono/hono/deno";
 import { RecipeRepository } from "./db/recipe-repository.ts";
 import { Recipe } from "./lib/types.ts";
 
@@ -102,7 +101,7 @@ api.post("/recipes/bulk", async (c) => {
 app.route("/api", api);
 
 // Serve the main HTML file
-app.get("/", async (c) => {
+app.get("/", (c) => {
   const html = `
 <!DOCTYPE html>
 <html lang="en">
