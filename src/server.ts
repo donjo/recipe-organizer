@@ -122,29 +122,18 @@ if (isDev) {
   });
 } else {
   // In production, serve built files
-  // First, try to serve static files (JS, CSS, images, etc.)
-  app.use('/*', async (c, next) => {
+  // Serve static assets first (JS, CSS, images, etc.)
+  app.use('/assets/*', serveStatic({ root: './dist' }));
+  
+  // Serve index.html for all non-API, non-asset routes (SPA routing)
+  app.get('/*', async (c) => {
     const path = c.req.path;
     
-    // Skip API and health routes
-    if (path.startsWith('/api') || path === '/health') {
-      return next();
+    // Skip API routes - they should be handled by the API router
+    if (path.startsWith('/api')) {
+      return c.notFound();
     }
     
-    // Try to serve the exact file if it exists
-    if (path !== '/') {
-      try {
-        const filePath = `./dist${path}`;
-        const stat = await Deno.stat(filePath);
-        if (stat.isFile) {
-          return serveStatic({ root: './dist' })(c, next);
-        }
-      } catch {
-        // File doesn't exist, continue to next handler
-      }
-    }
-    
-    // For all other routes, serve index.html (SPA routing)
     try {
       const html = await Deno.readTextFile('./dist/index.html');
       return c.html(html);
