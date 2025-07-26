@@ -12,7 +12,7 @@ if (Deno.env.get('DENO_DEPLOYMENT_ID') === undefined) {
 // Debug environment variables (without showing sensitive data)
 console.log('🔍 Database connection debug:');
 console.log('DENO_DEPLOYMENT_ID:', Deno.env.get('DENO_DEPLOYMENT_ID') ? 'Present' : 'Not present');
-console.log('DATABASE_URL:', Deno.env.get('DATABASE_URL') ? 'Present' : 'Not present');
+console.log('DATABASE_URL:', Deno.env.get('DATABASE_URL') ? 'Present (length: ' + Deno.env.get('DATABASE_URL')?.length + ')' : 'Not present');
 console.log('DATABASE_HOST:', Deno.env.get('DATABASE_HOST') ? 'Present' : 'Not present');
 
 // Database table types
@@ -56,6 +56,7 @@ export interface Database {
 let connectionString = Deno.env.get('DATABASE_URL');
 
 if (!connectionString) {
+  console.log('📝 Building connection string from individual variables...');
   const host = Deno.env.get('DATABASE_HOST') || 'localhost';
   const port = Deno.env.get('DATABASE_PORT') || '5432';
   const user = Deno.env.get('DATABASE_USER') || 'johndonmoyer';
@@ -66,13 +67,35 @@ if (!connectionString) {
   connectionString = password 
     ? `postgres://${user}:${password}@${host}:${port}/${database}`
     : `postgres://${user}@${host}:${port}/${database}`;
+  
+  console.log(`📡 Using connection: postgres://${user}:***@${host}:${port}/${database}`);
+} else {
+  console.log('📡 Using DATABASE_URL from environment');
 }
 
 // Create postgres client
 // Neon requires SSL connections in production
+const isProduction = Deno.env.get('DENO_DEPLOYMENT_ID') !== undefined;
+
+// For Neon, we need to handle SSL properly
+let sslConfig;
+if (isProduction) {
+  // Check if the connection string already has SSL params
+  if (connectionString.includes('sslmode=')) {
+    sslConfig = 'prefer'; // Let postgres library handle it
+    console.log('🔐 SSL config: Using connection string SSL parameters');
+  } else {
+    sslConfig = { rejectUnauthorized: false };
+    console.log('🔐 SSL config: Using custom SSL config');
+  }
+} else {
+  sslConfig = false;
+  console.log('🔐 SSL config: Disabled for development');
+}
+
 const sql = postgres(connectionString, {
   max: 10,
-  ssl: Deno.env.get('DENO_DEPLOYMENT_ID') ? 'require' : false,
+  ssl: sslConfig,
 });
 
 export const db = new Kysely<Database>({

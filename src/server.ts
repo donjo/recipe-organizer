@@ -19,12 +19,22 @@ const api = new Hono();
 // Get all recipes
 api.get('/recipes', async (c) => {
   try {
+    console.log('📋 Fetching all recipes...');
     const recipeRepo = new RecipeRepository();
     const recipes = await recipeRepo.getAllRecipes();
+    console.log(`✅ Found ${recipes.length} recipes`);
     return c.json(recipes);
   } catch (error) {
-    console.error('Error fetching recipes:', error);
-    return c.json({ error: 'Failed to fetch recipes' }, 500);
+    console.error('❌ Error fetching recipes:', error);
+    console.error('Error details:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack
+    });
+    return c.json({ 
+      error: 'Failed to fetch recipes',
+      details: error.message 
+    }, 500);
   }
 });
 
