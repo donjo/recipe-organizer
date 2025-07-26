@@ -9,6 +9,12 @@ if (Deno.env.get('DENO_DEPLOYMENT_ID') === undefined) {
   await load({ export: true });
 }
 
+// Debug environment variables (without showing sensitive data)
+console.log('🔍 Database connection debug:');
+console.log('DENO_DEPLOYMENT_ID:', Deno.env.get('DENO_DEPLOYMENT_ID') ? 'Present' : 'Not present');
+console.log('DATABASE_URL:', Deno.env.get('DATABASE_URL') ? 'Present' : 'Not present');
+console.log('DATABASE_HOST:', Deno.env.get('DATABASE_HOST') ? 'Present' : 'Not present');
+
 // Database table types
 export interface RecipeTable {
   id: string;
@@ -63,8 +69,10 @@ if (!connectionString) {
 }
 
 // Create postgres client
+// Neon requires SSL connections in production
 const sql = postgres(connectionString, {
   max: 10,
+  ssl: Deno.env.get('DENO_DEPLOYMENT_ID') ? 'require' : false,
 });
 
 export const db = new Kysely<Database>({

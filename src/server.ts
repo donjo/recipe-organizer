@@ -3,8 +3,12 @@ import { cors } from '@hono/hono/cors';
 import { serveStatic } from '@hono/hono/deno';
 import { RecipeRepository } from './db/recipe-repository.ts';
 import { Recipe } from './lib/types.ts';
+import { runMigrationsIfNeeded } from './db/auto-migrate.ts';
 
 const app = new Hono();
+
+// Run migrations on startup
+await runMigrationsIfNeeded();
 
 // Enable CORS for all routes
 app.use('/*', cors());
