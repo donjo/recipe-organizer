@@ -77,26 +77,22 @@ if (!connectionString) {
 // Neon requires SSL connections in production
 const isProduction = Deno.env.get('DENO_DEPLOYMENT_ID') !== undefined;
 
-// For Neon, we need to handle SSL properly
-let sslConfig;
-if (isProduction) {
-  // Check if the connection string already has SSL params
-  if (connectionString.includes('sslmode=')) {
-    sslConfig = 'prefer'; // Let postgres library handle it
-    console.log('🔐 SSL config: Using connection string SSL parameters');
-  } else {
-    sslConfig = { rejectUnauthorized: false };
-    console.log('🔐 SSL config: Using custom SSL config');
-  }
-} else {
-  sslConfig = false;
-  console.log('🔐 SSL config: Disabled for development');
-}
+// TEMPORARILY DISABLE SSL TO TEST CONNECTION
+console.log('⚠️  TESTING: SSL completely disabled for connection testing');
 
-const sql = postgres(connectionString, {
+// Remove any SSL parameters from connection string
+connectionString = connectionString.replace(/[?&]sslmode=[^&]+/g, '');
+connectionString = connectionString.replace(/[?&]ssl=[^&]+/g, '');
+
+const postgresConfig = {
   max: 10,
-  ssl: sslConfig,
-});
+  ssl: false, // Completely disable SSL
+};
+
+console.log('🔐 SSL config: DISABLED for testing');
+
+console.log('🔗 Final connection setup complete');
+const sql = postgres(connectionString, postgresConfig);
 
 export const db = new Kysely<Database>({
   dialect: new PostgresJSDialect({
