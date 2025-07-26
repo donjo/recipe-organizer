@@ -118,19 +118,14 @@ app.get('/health', (c) => {
   return c.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Mount API routes
+// Mount API routes FIRST
 app.route('/api', api);
 
 // Serve static assets (JS, CSS, images, etc.)
 app.use('/assets/*', serveStatic({ root: './dist' }));
 
-// Serve index.html for all other routes (SPA routing)
-app.get('*', async (c) => {
-  // Skip if it's an API route
-  if (c.req.path.startsWith('/api') || c.req.path === '/health') {
-    return c.notFound();
-  }
-  
+// Serve index.html for the root route
+app.get('/', async (c) => {
   try {
     const html = await Deno.readTextFile('./dist/index.html');
     return c.html(html);
@@ -138,6 +133,25 @@ app.get('*', async (c) => {
     console.error('Failed to serve index.html:', error);
     return c.text('Frontend build not found', 404);
   }
+});
+
+// Serve index.html for all other non-API, non-asset routes (SPA routing)
+app.notFound(async (c) => {
+  // Only serve index.html for GET requests that aren't API or asset requests
+  if (c.req.method === 'GET' && 
+      !c.req.path.startsWith('/api') && 
+      !c.req.path.startsWith('/assets') && 
+      c.req.path !== '/health') {
+    try {
+      const html = await Deno.readTextFile('./dist/index.html');
+      return c.html(html);
+    } catch (error) {
+      console.error('Failed to serve index.html:', error);
+      return c.text('Frontend build not found', 404);
+    }
+  }
+  
+  return c.text('Not Found', 404);
 });
 
 const port = parseInt(Deno.env.get('PORT') || '3000');
