@@ -1,17 +1,21 @@
 # Recipe Organizer - Deno Migration
 
-Your Recipe Organizer app has been successfully migrated to use Deno with PostgreSQL and Kysely!
+Your Recipe Organizer app has been successfully migrated to use Deno with
+PostgreSQL and Kysely!
 
 ## What Changed
 
-✅ **Database**: Migrated from GitHub Spark's `useKV` to PostgreSQL with Kysely ORM  
-✅ **Backend**: Created REST API endpoints using Hono framework  
-✅ **Frontend**: Updated React components to use fetch API instead of local storage  
-✅ **Dependencies**: All packages now use npm: imports in deno.json  
+✅ **Database**: Migrated from GitHub Spark's `useKV` to PostgreSQL with Kysely
+ORM\
+✅ **Backend**: Created REST API endpoints using Hono framework\
+✅ **Frontend**: Updated React components to use fetch API instead of local
+storage\
+✅ **Dependencies**: All packages now use npm: imports in deno.json
 
 ## Setup Complete
 
 Your local PostgreSQL database is ready:
+
 - Database: `recipe_organizer`
 - Tables: `recipes`, `ingredients`, `instructions`
 - Credentials configured in `.env`
@@ -19,26 +23,32 @@ Your local PostgreSQL database is ready:
 ## Running the Application
 
 ### Quick Start (Recommended)
+
 ```bash
 ./start-dev.sh
 ```
 
 ### Manual Start (Two terminals)
+
 Terminal 1 - API Server:
+
 ```bash
 deno task api
 ```
 
 Terminal 2 - Frontend:
+
 ```bash
 npm run dev
 ```
 
 **Access URLs:**
+
 - Frontend: http://localhost:5173 (Vite dev server)
 - API: http://localhost:3001/api (Deno server)
 
 ### Database Commands
+
 ```bash
 # Run migrations (already done)
 deno task migrate:up

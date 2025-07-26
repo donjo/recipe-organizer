@@ -5,6 +5,7 @@ Your app is ready for production deployment! Here's everything you need to know.
 ## ✅ Your App is Production-Ready
 
 The app already handles:
+
 - ✅ Environment variable configuration for database
 - ✅ Production vs development mode detection
 - ✅ Static file serving for built frontend
@@ -19,11 +20,13 @@ Configure these environment variables on your deployment platform:
 ### Database Configuration (Choose One Method)
 
 **Option 1 - Single URL (Recommended for most platforms):**
+
 ```bash
 DATABASE_URL=postgresql://username:password@host:port/database_name
 ```
 
 **Option 2 - Individual Variables:**
+
 ```bash
 DATABASE_HOST=your-db-host
 DATABASE_PORT=5432
@@ -33,6 +36,7 @@ DATABASE_NAME=your-database-name
 ```
 
 ### Server Configuration
+
 ```bash
 PORT=8000                    # Port for your app (platform default usually works)
 NODE_ENV=production          # Enables production mode
@@ -41,18 +45,23 @@ NODE_ENV=production          # Enables production mode
 ## 📦 Deployment Steps
 
 ### 1. Build the Frontend
+
 ```bash
 deno task build
 ```
+
 This creates a `dist/` folder with your built React app.
 
 ### 2. Run Database Migrations
+
 On your production server (one-time setup):
+
 ```bash
 deno task migrate:up
 ```
 
 ### 3. Start the Production Server
+
 ```bash
 deno task start
 ```
@@ -60,6 +69,7 @@ deno task start
 ## 🚀 Platform-Specific Instructions
 
 ### Deno Deploy (Recommended)
+
 1. Go to https://dash.deno.com and click "New Project"
 2. Connect your GitHub repository
 3. Configure build settings:
@@ -74,12 +84,14 @@ deno task start
 > **Note**: See `DENO_DEPLOY_CONFIG.md` for detailed configuration guide.
 
 ### Railway
+
 1. Connect your GitHub repository
 2. Add environment variables in Railway dashboard
 3. Railway will automatically detect and run your Deno app
 4. Your app will be available at the provided Railway URL
 
 ### Heroku
+
 1. Create a `Procfile`:
    ```
    web: deno task start
@@ -88,6 +100,7 @@ deno task start
 3. Deploy via Git or GitHub integration
 
 ### DigitalOcean App Platform
+
 1. Connect your GitHub repository
 2. Set build command: `deno task build`
 3. Set run command: `deno task start`
@@ -97,12 +110,14 @@ deno task start
 ## 🗄️ Production Database Setup
 
 ### Recommended Services:
+
 - **Neon** (PostgreSQL): Great for Deno apps, provides `DATABASE_URL`
 - **Supabase**: Full-featured with built-in auth and APIs
 - **Railway PostgreSQL**: Simple, integrated with Railway hosting
 - **DigitalOcean Managed PostgreSQL**: Reliable and scalable
 
 ### Database Setup Steps:
+
 1. Create a PostgreSQL database on your chosen service
 2. Get the connection URL (usually provided as `DATABASE_URL`)
 3. Run migrations: `deno task migrate:up`
@@ -111,9 +126,11 @@ deno task start
 ## 🔍 Health Check
 
 Your app includes a health check endpoint:
+
 ```
 GET /health
 ```
+
 Returns: `{"status":"ok","timestamp":"2025-07-25T..."}`
 
 ## 📁 File Structure for Production
@@ -132,16 +149,19 @@ recipe-organizer/
 ## 🔧 Troubleshooting
 
 ### Database Connection Issues
+
 - Ensure `DATABASE_URL` or individual DB variables are set correctly
 - Check that your database allows connections from your deployment platform
 - Verify SSL settings if required by your database provider
 
 ### Build Issues
+
 - Run `deno task build` locally first to test
 - Ensure all dependencies are in `deno.json` imports
 - Check that TypeScript compilation passes
 
 ### Runtime Issues
+
 - Check application logs for error details
 - Verify environment variables are set on the platform
 - Ensure database migrations have been run

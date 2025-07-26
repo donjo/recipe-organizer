@@ -1,4 +1,4 @@
-import { Recipe } from '@/lib/types';
+import { Recipe } from "@/lib/types";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,7 +8,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+} from "@/components/ui/alert-dialog";
 
 interface DeleteRecipeDialogProps {
   recipe: Recipe | null;
@@ -17,7 +17,9 @@ interface DeleteRecipeDialogProps {
   onConfirm: (recipe: Recipe) => void;
 }
 
-export function DeleteRecipeDialog({ recipe, open, onClose, onConfirm }: DeleteRecipeDialogProps) {
+export function DeleteRecipeDialog(
+  { recipe, open, onClose, onConfirm }: DeleteRecipeDialogProps,
+) {
   if (!recipe) return null;
 
   const handleConfirm = () => {
@@ -31,7 +33,8 @@ export function DeleteRecipeDialog({ recipe, open, onClose, onConfirm }: DeleteR
         <AlertDialogHeader>
           <AlertDialogTitle>Delete Recipe</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete "{recipe.title}"? This action cannot be undone.
+            Are you sure you want to delete "{recipe.title}"? This action cannot
+            be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

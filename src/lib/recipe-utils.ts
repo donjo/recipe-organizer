@@ -1,4 +1,4 @@
-import { Recipe } from './types';
+import { Recipe } from "./types";
 
 export function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
@@ -20,16 +20,20 @@ export function getTotalTime(recipe: Recipe): number {
   return recipe.prepTime + recipe.cookTime;
 }
 
-export function filterRecipes(recipes: Recipe[], searchTerm: string, category?: string): Recipe[] {
-  return recipes.filter(recipe => {
-    const matchesSearch = !searchTerm || 
+export function filterRecipes(
+  recipes: Recipe[],
+  searchTerm: string,
+  category?: string,
+): Recipe[] {
+  return recipes.filter((recipe) => {
+    const matchesSearch = !searchTerm ||
       recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      recipe.ingredients.some(ingredient => 
+      recipe.ingredients.some((ingredient) =>
         ingredient.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
-    
+
     const matchesCategory = !category || recipe.category === category;
-    
+
     return matchesSearch && matchesCategory;
   });
 }

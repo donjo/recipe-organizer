@@ -1,10 +1,17 @@
-import { Recipe } from '@/lib/types';
-import { formatTime, getTotalTime } from '@/lib/recipe-utils';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Clock, Users, ChefHat, ArrowLeft, Pencil, Trash } from '@phosphor-icons/react';
+import { Recipe } from "@/lib/types";
+import { formatTime, getTotalTime } from "@/lib/recipe-utils";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import {
+  ArrowLeft,
+  ChefHat,
+  Clock,
+  Pencil,
+  Trash,
+  Users,
+} from "@phosphor-icons/react";
 
 interface RecipeDetailProps {
   recipe: Recipe | null;
@@ -15,7 +22,10 @@ interface RecipeDetailProps {
   onStartCooking: (recipe: Recipe) => void;
 }
 
-export function RecipeDetail({ recipe, open, onClose, onEdit, onDelete, onStartCooking }: RecipeDetailProps) {
+export function RecipeDetail(
+  { recipe, open, onClose, onEdit, onDelete, onStartCooking }:
+    RecipeDetailProps,
+) {
   if (!recipe) return null;
 
   return (
@@ -37,11 +47,19 @@ export function RecipeDetail({ recipe, open, onClose, onEdit, onDelete, onStartC
               )}
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={() => onEdit(recipe)}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onEdit(recipe)}
+              >
                 <Pencil size={16} />
                 Edit
               </Button>
-              <Button variant="outline" size="sm" onClick={() => onDelete(recipe)}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onDelete(recipe)}
+              >
                 <Trash size={16} />
                 Delete
               </Button>
@@ -53,15 +71,20 @@ export function RecipeDetail({ recipe, open, onClose, onEdit, onDelete, onStartC
             <div className="flex items-center gap-2">
               <Clock size={16} className="text-muted-foreground" />
               <div>
-                <span className="font-medium">Total: {formatTime(getTotalTime(recipe))}</span>
+                <span className="font-medium">
+                  Total: {formatTime(getTotalTime(recipe))}
+                </span>
                 <div className="text-muted-foreground">
-                  Prep: {formatTime(recipe.prepTime)} • Cook: {formatTime(recipe.cookTime)}
+                  Prep: {formatTime(recipe.prepTime)} • Cook:{" "}
+                  {formatTime(recipe.cookTime)}
                 </div>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Users size={16} className="text-muted-foreground" />
-              <span>{recipe.servings} serving{recipe.servings !== 1 ? 's' : ''}</span>
+              <span>
+                {recipe.servings} serving{recipe.servings !== 1 ? "s" : ""}
+              </span>
             </div>
           </div>
 
@@ -75,7 +98,9 @@ export function RecipeDetail({ recipe, open, onClose, onEdit, onDelete, onStartC
                 <li key={ingredient.id} className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-primary shrink-0" />
                   <span>
-                    <span className="font-medium">{ingredient.amount} {ingredient.unit}</span>{' '}
+                    <span className="font-medium">
+                      {ingredient.amount} {ingredient.unit}
+                    </span>{" "}
                     {ingredient.name}
                   </span>
                 </li>

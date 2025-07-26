@@ -1,14 +1,25 @@
-import { useState } from 'react';
-import { Recipe, Ingredient, RECIPE_CATEGORIES } from '@/lib/types';
-import { generateId } from '@/lib/recipe-utils';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Trash } from '@phosphor-icons/react';
+import { useState } from "react";
+import { Ingredient, Recipe, RECIPE_CATEGORIES } from "@/lib/types";
+import { generateId } from "@/lib/recipe-utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plus, Trash } from "@phosphor-icons/react";
 
 interface RecipeFormProps {
   recipe?: Recipe;
@@ -18,24 +29,34 @@ interface RecipeFormProps {
 }
 
 export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
-  const [title, setTitle] = useState(recipe?.title || '');
-  const [description, setDescription] = useState(recipe?.description || '');
-  const [category, setCategory] = useState(recipe?.category || '');
-  const [prepTime, setPrepTime] = useState(recipe?.prepTime?.toString() || '');
-  const [cookTime, setCookTime] = useState(recipe?.cookTime?.toString() || '');
-  const [servings, setServings] = useState(recipe?.servings?.toString() || '');
+  const [title, setTitle] = useState(recipe?.title || "");
+  const [description, setDescription] = useState(recipe?.description || "");
+  const [category, setCategory] = useState(recipe?.category || "");
+  const [prepTime, setPrepTime] = useState(recipe?.prepTime?.toString() || "");
+  const [cookTime, setCookTime] = useState(recipe?.cookTime?.toString() || "");
+  const [servings, setServings] = useState(recipe?.servings?.toString() || "");
   const [ingredients, setIngredients] = useState<Ingredient[]>(
-    recipe?.ingredients || [{ id: generateId(), name: '', amount: '', unit: '' }]
+    recipe?.ingredients ||
+      [{ id: generateId(), name: "", amount: "", unit: "" }],
   );
   const [instructions, setInstructions] = useState<string[]>(
-    recipe?.instructions || ['']
+    recipe?.instructions || [""],
   );
 
   const addIngredient = () => {
-    setIngredients([...ingredients, { id: generateId(), name: '', amount: '', unit: '' }]);
+    setIngredients([...ingredients, {
+      id: generateId(),
+      name: "",
+      amount: "",
+      unit: "",
+    }]);
   };
 
-  const updateIngredient = (index: number, field: keyof Ingredient, value: string) => {
+  const updateIngredient = (
+    index: number,
+    field: keyof Ingredient,
+    value: string,
+  ) => {
     const updated = [...ingredients];
     updated[index] = { ...updated[index], [field]: value };
     setIngredients(updated);
@@ -48,7 +69,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
   };
 
   const addInstruction = () => {
-    setInstructions([...instructions, '']);
+    setInstructions([...instructions, ""]);
   };
 
   const updateInstruction = (index: number, value: string) => {
@@ -68,8 +89,8 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
       return;
     }
 
-    const validIngredients = ingredients.filter(ing => ing.name.trim());
-    const validInstructions = instructions.filter(inst => inst.trim());
+    const validIngredients = ingredients.filter((ing) => ing.name.trim());
+    const validInstructions = instructions.filter((inst) => inst.trim());
 
     if (validIngredients.length === 0 || validInstructions.length === 0) {
       return;
@@ -95,14 +116,14 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
   };
 
   const resetForm = () => {
-    setTitle('');
-    setDescription('');
-    setCategory('');
-    setPrepTime('');
-    setCookTime('');
-    setServings('');
-    setIngredients([{ id: generateId(), name: '', amount: '', unit: '' }]);
-    setInstructions(['']);
+    setTitle("");
+    setDescription("");
+    setCategory("");
+    setPrepTime("");
+    setCookTime("");
+    setServings("");
+    setIngredients([{ id: generateId(), name: "", amount: "", unit: "" }]);
+    setInstructions([""]);
   };
 
   const handleClose = () => {
@@ -116,9 +137,9 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{recipe ? 'Edit Recipe' : 'Add New Recipe'}</DialogTitle>
+          <DialogTitle>{recipe ? "Edit Recipe" : "Add New Recipe"}</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-6">
           {/* Basic Info */}
           <div className="space-y-4">
@@ -131,7 +152,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                 placeholder="Enter recipe title"
               />
             </div>
-            
+
             <div>
               <Label htmlFor="description">Description (Optional)</Label>
               <Textarea
@@ -142,7 +163,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                 rows={2}
               />
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="category">Category</Label>
@@ -151,13 +172,13 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
-                    {RECIPE_CATEGORIES.map(cat => (
+                    {RECIPE_CATEGORIES.map((cat) => (
                       <SelectItem key={cat} value={cat}>{cat}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div>
                 <Label htmlFor="servings">Servings</Label>
                 <Input
@@ -170,7 +191,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                 />
               </div>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="prep-time">Prep Time (minutes)</Label>
@@ -183,7 +204,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                   placeholder="Preparation time"
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="cook-time">Cook Time (minutes)</Label>
                 <Input
@@ -209,25 +230,29 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                   <Input
                     placeholder="Amount"
                     value={ingredient.amount}
-                    onChange={(e) => updateIngredient(index, 'amount', e.target.value)}
+                    onChange={(e) =>
+                      updateIngredient(index, "amount", e.target.value)}
                     className="w-20"
                   />
                   <Input
                     placeholder="Unit"
                     value={ingredient.unit}
-                    onChange={(e) => updateIngredient(index, 'unit', e.target.value)}
+                    onChange={(e) =>
+                      updateIngredient(index, "unit", e.target.value)}
                     className="w-20"
                   />
                   <Input
                     placeholder="Ingredient name"
                     value={ingredient.name}
-                    onChange={(e) => updateIngredient(index, 'name', e.target.value)}
+                    onChange={(e) =>
+                      updateIngredient(index, "name", e.target.value)}
                     className="flex-1"
                   />
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => removeIngredient(index)}
+                    onClick={() =>
+                      removeIngredient(index)}
                     disabled={ingredients.length === 1}
                   >
                     <Trash size={16} />
@@ -255,14 +280,16 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                   <Textarea
                     placeholder={`Step ${index + 1} instructions`}
                     value={instruction}
-                    onChange={(e) => updateInstruction(index, e.target.value)}
+                    onChange={(e) =>
+                      updateInstruction(index, e.target.value)}
                     rows={2}
                     className="flex-1"
                   />
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => removeInstruction(index)}
+                    onClick={() =>
+                      removeInstruction(index)}
                     disabled={instructions.length === 1}
                     className="mt-1"
                   >
@@ -283,7 +310,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
             Cancel
           </Button>
           <Button onClick={handleSave}>
-            {recipe ? 'Update Recipe' : 'Save Recipe'}
+            {recipe ? "Update Recipe" : "Save Recipe"}
           </Button>
         </div>
       </DialogContent>

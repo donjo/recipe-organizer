@@ -1,25 +1,36 @@
-import { Recipe } from '@/lib/types';
-import { generateId } from '@/lib/recipe-utils';
+import { Recipe } from "@/lib/types";
+import { generateId } from "@/lib/recipe-utils";
 
 export const SAMPLE_RECIPES: Recipe[] = [
   {
     id: generateId(),
     title: "Classic Chocolate Chip Cookies",
-    description: "Soft, chewy, and loaded with chocolate chips - the perfect comfort cookie",
+    description:
+      "Soft, chewy, and loaded with chocolate chips - the perfect comfort cookie",
     category: "Dessert",
     prepTime: 15,
     cookTime: 12,
     servings: 24,
     ingredients: [
-      { id: generateId(), name: "all-purpose flour", amount: "2¼", unit: "cups" },
+      {
+        id: generateId(),
+        name: "all-purpose flour",
+        amount: "2¼",
+        unit: "cups",
+      },
       { id: generateId(), name: "baking soda", amount: "1", unit: "tsp" },
       { id: generateId(), name: "salt", amount: "1", unit: "tsp" },
       { id: generateId(), name: "butter, softened", amount: "1", unit: "cup" },
       { id: generateId(), name: "granulated sugar", amount: "¾", unit: "cup" },
-      { id: generateId(), name: "brown sugar, packed", amount: "¾", unit: "cup" },
+      {
+        id: generateId(),
+        name: "brown sugar, packed",
+        amount: "¾",
+        unit: "cup",
+      },
       { id: generateId(), name: "large eggs", amount: "2", unit: "" },
       { id: generateId(), name: "vanilla extract", amount: "2", unit: "tsp" },
-      { id: generateId(), name: "chocolate chips", amount: "2", unit: "cups" }
+      { id: generateId(), name: "chocolate chips", amount: "2", unit: "cups" },
     ],
     instructions: [
       "Preheat oven to 375°F (190°C). Line baking sheets with parchment paper.",
@@ -30,31 +41,57 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Fold in chocolate chips until evenly distributed.",
       "Drop rounded tablespoons of dough onto prepared baking sheets, spacing them about 2 inches apart.",
       "Bake for 9-11 minutes, or until edges are golden brown but centers still look soft.",
-      "Cool on baking sheet for 5 minutes before transferring to a wire rack."
+      "Cool on baking sheet for 5 minutes before transferring to a wire rack.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Creamy Mushroom Risotto",
-    description: "Rich and creamy Arborio rice with earthy mushrooms and Parmesan",
+    description:
+      "Rich and creamy Arborio rice with earthy mushrooms and Parmesan",
     category: "Dinner",
     prepTime: 10,
     cookTime: 30,
     servings: 4,
     ingredients: [
       { id: generateId(), name: "Arborio rice", amount: "1½", unit: "cups" },
-      { id: generateId(), name: "vegetable or chicken broth", amount: "6", unit: "cups" },
-      { id: generateId(), name: "mixed mushrooms, sliced", amount: "8", unit: "oz" },
+      {
+        id: generateId(),
+        name: "vegetable or chicken broth",
+        amount: "6",
+        unit: "cups",
+      },
+      {
+        id: generateId(),
+        name: "mixed mushrooms, sliced",
+        amount: "8",
+        unit: "oz",
+      },
       { id: generateId(), name: "onion, diced", amount: "1", unit: "medium" },
-      { id: generateId(), name: "garlic cloves, minced", amount: "3", unit: "" },
+      {
+        id: generateId(),
+        name: "garlic cloves, minced",
+        amount: "3",
+        unit: "",
+      },
       { id: generateId(), name: "white wine", amount: "½", unit: "cup" },
       { id: generateId(), name: "butter", amount: "4", unit: "tbsp" },
       { id: generateId(), name: "olive oil", amount: "2", unit: "tbsp" },
-      { id: generateId(), name: "Parmesan cheese, grated", amount: "¾", unit: "cup" },
+      {
+        id: generateId(),
+        name: "Parmesan cheese, grated",
+        amount: "¾",
+        unit: "cup",
+      },
       { id: generateId(), name: "fresh thyme", amount: "2", unit: "tsp" },
-      { id: generateId(), name: "salt and pepper", amount: "to", unit: "taste" }
+      {
+        id: generateId(),
+        name: "salt and pepper",
+        amount: "to",
+        unit: "taste",
+      },
     ],
     instructions: [
       "Heat broth in a saucepan and keep warm on low heat throughout cooking.",
@@ -66,10 +103,10 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Add warm broth one ladle at a time, stirring constantly. Wait until each addition is absorbed before adding more.",
       "Continue this process for 18-20 minutes until rice is creamy but still has a slight bite.",
       "Stir in cooked mushrooms, remaining butter, Parmesan, and thyme.",
-      "Season with salt and pepper to taste. Serve immediately while hot and creamy."
+      "Season with salt and pepper to taste. Serve immediately while hot and creamy.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
@@ -80,7 +117,12 @@ export const SAMPLE_RECIPES: Recipe[] = [
     cookTime: 0,
     servings: 2,
     ingredients: [
-      { id: generateId(), name: "frozen mixed berries", amount: "1½", unit: "cups" },
+      {
+        id: generateId(),
+        name: "frozen mixed berries",
+        amount: "1½",
+        unit: "cups",
+      },
       { id: generateId(), name: "banana, sliced", amount: "1", unit: "large" },
       { id: generateId(), name: "Greek yogurt", amount: "½", unit: "cup" },
       { id: generateId(), name: "almond milk", amount: "¼", unit: "cup" },
@@ -88,22 +130,23 @@ export const SAMPLE_RECIPES: Recipe[] = [
       { id: generateId(), name: "granola", amount: "¼", unit: "cup" },
       { id: generateId(), name: "fresh berries", amount: "½", unit: "cup" },
       { id: generateId(), name: "coconut flakes", amount: "2", unit: "tbsp" },
-      { id: generateId(), name: "chia seeds", amount: "1", unit: "tbsp" }
+      { id: generateId(), name: "chia seeds", amount: "1", unit: "tbsp" },
     ],
     instructions: [
       "Add frozen berries, half the banana, Greek yogurt, almond milk, and honey to a blender.",
       "Blend until smooth and thick, adding more almond milk if needed for desired consistency.",
       "Pour the smoothie mixture into two bowls.",
       "Top with remaining banana slices, fresh berries, granola, coconut flakes, and chia seeds.",
-      "Serve immediately while cold and fresh."
+      "Serve immediately while cold and fresh.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Mediterranean Quinoa Salad",
-    description: "A refreshing and protein-packed salad with vibrant Mediterranean flavors",
+    description:
+      "A refreshing and protein-packed salad with vibrant Mediterranean flavors",
     category: "Lunch",
     prepTime: 20,
     cookTime: 15,
@@ -111,16 +154,56 @@ export const SAMPLE_RECIPES: Recipe[] = [
     ingredients: [
       { id: generateId(), name: "quinoa", amount: "1", unit: "cup" },
       { id: generateId(), name: "cucumber, diced", amount: "1", unit: "large" },
-      { id: generateId(), name: "cherry tomatoes, halved", amount: "2", unit: "cups" },
-      { id: generateId(), name: "red onion, finely diced", amount: "½", unit: "small" },
-      { id: generateId(), name: "kalamata olives, pitted and halved", amount: "½", unit: "cup" },
-      { id: generateId(), name: "feta cheese, crumbled", amount: "¾", unit: "cup" },
-      { id: generateId(), name: "fresh parsley, chopped", amount: "¼", unit: "cup" },
-      { id: generateId(), name: "fresh mint, chopped", amount: "2", unit: "tbsp" },
+      {
+        id: generateId(),
+        name: "cherry tomatoes, halved",
+        amount: "2",
+        unit: "cups",
+      },
+      {
+        id: generateId(),
+        name: "red onion, finely diced",
+        amount: "½",
+        unit: "small",
+      },
+      {
+        id: generateId(),
+        name: "kalamata olives, pitted and halved",
+        amount: "½",
+        unit: "cup",
+      },
+      {
+        id: generateId(),
+        name: "feta cheese, crumbled",
+        amount: "¾",
+        unit: "cup",
+      },
+      {
+        id: generateId(),
+        name: "fresh parsley, chopped",
+        amount: "¼",
+        unit: "cup",
+      },
+      {
+        id: generateId(),
+        name: "fresh mint, chopped",
+        amount: "2",
+        unit: "tbsp",
+      },
       { id: generateId(), name: "lemon juice", amount: "3", unit: "tbsp" },
-      { id: generateId(), name: "extra virgin olive oil", amount: "3", unit: "tbsp" },
+      {
+        id: generateId(),
+        name: "extra virgin olive oil",
+        amount: "3",
+        unit: "tbsp",
+      },
       { id: generateId(), name: "dried oregano", amount: "1", unit: "tsp" },
-      { id: generateId(), name: "salt and pepper", amount: "to", unit: "taste" }
+      {
+        id: generateId(),
+        name: "salt and pepper",
+        amount: "to",
+        unit: "taste",
+      },
     ],
     instructions: [
       "Rinse quinoa in cold water. Combine with 2 cups water in a saucepan and bring to a boil.",
@@ -132,31 +215,67 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Pour dressing over the salad and toss to combine.",
       "Add feta cheese, parsley, and mint. Gently fold to distribute.",
       "Taste and adjust seasoning. Chill for at least 30 minutes before serving.",
-      "Can be made up to 2 days ahead and stored in refrigerator."
+      "Can be made up to 2 days ahead and stored in refrigerator.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Thai Green Curry with Chicken",
-    description: "Aromatic and spicy Thai curry with tender chicken and fresh vegetables",
+    description:
+      "Aromatic and spicy Thai curry with tender chicken and fresh vegetables",
     category: "Dinner",
     prepTime: 15,
     cookTime: 25,
     servings: 4,
     ingredients: [
-      { id: generateId(), name: "boneless chicken thighs, sliced", amount: "1", unit: "lb" },
-      { id: generateId(), name: "coconut milk", amount: "1", unit: "can (14 oz)" },
-      { id: generateId(), name: "green curry paste", amount: "2-3", unit: "tbsp" },
+      {
+        id: generateId(),
+        name: "boneless chicken thighs, sliced",
+        amount: "1",
+        unit: "lb",
+      },
+      {
+        id: generateId(),
+        name: "coconut milk",
+        amount: "1",
+        unit: "can (14 oz)",
+      },
+      {
+        id: generateId(),
+        name: "green curry paste",
+        amount: "2-3",
+        unit: "tbsp",
+      },
       { id: generateId(), name: "fish sauce", amount: "2", unit: "tbsp" },
       { id: generateId(), name: "brown sugar", amount: "1", unit: "tbsp" },
-      { id: generateId(), name: "Thai eggplant, quartered", amount: "2", unit: "small" },
-      { id: generateId(), name: "bell pepper, sliced", amount: "1", unit: "red" },
-      { id: generateId(), name: "bamboo shoots, drained", amount: "½", unit: "cup" },
+      {
+        id: generateId(),
+        name: "Thai eggplant, quartered",
+        amount: "2",
+        unit: "small",
+      },
+      {
+        id: generateId(),
+        name: "bell pepper, sliced",
+        amount: "1",
+        unit: "red",
+      },
+      {
+        id: generateId(),
+        name: "bamboo shoots, drained",
+        amount: "½",
+        unit: "cup",
+      },
       { id: generateId(), name: "Thai basil leaves", amount: "¼", unit: "cup" },
       { id: generateId(), name: "lime juice", amount: "2", unit: "tbsp" },
-      { id: generateId(), name: "jasmine rice", amount: "2", unit: "cups cooked" }
+      {
+        id: generateId(),
+        name: "jasmine rice",
+        amount: "2",
+        unit: "cups cooked",
+      },
     ],
     instructions: [
       "Heat 2 tablespoons of thick coconut cream from the top of the can in a wok over medium-high heat.",
@@ -167,21 +286,27 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Add bell pepper and bamboo shoots. Cook for 3-4 minutes until pepper is crisp-tender.",
       "Remove from heat and stir in Thai basil and lime juice.",
       "Taste and adjust seasoning with more fish sauce, sugar, or curry paste as needed.",
-      "Serve immediately over jasmine rice, garnished with extra basil leaves."
+      "Serve immediately over jasmine rice, garnished with extra basil leaves.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Fluffy Pancakes",
-    description: "Light, airy pancakes perfect for weekend breakfast with maple syrup",
+    description:
+      "Light, airy pancakes perfect for weekend breakfast with maple syrup",
     category: "Breakfast",
     prepTime: 10,
     cookTime: 15,
     servings: 4,
     ingredients: [
-      { id: generateId(), name: "all-purpose flour", amount: "2", unit: "cups" },
+      {
+        id: generateId(),
+        name: "all-purpose flour",
+        amount: "2",
+        unit: "cups",
+      },
       { id: generateId(), name: "baking powder", amount: "2", unit: "tsp" },
       { id: generateId(), name: "salt", amount: "½", unit: "tsp" },
       { id: generateId(), name: "sugar", amount: "2", unit: "tbsp" },
@@ -189,7 +314,12 @@ export const SAMPLE_RECIPES: Recipe[] = [
       { id: generateId(), name: "milk", amount: "1¾", unit: "cups" },
       { id: generateId(), name: "melted butter", amount: "¼", unit: "cup" },
       { id: generateId(), name: "vanilla extract", amount: "1", unit: "tsp" },
-      { id: generateId(), name: "butter for cooking", amount: "as", unit: "needed" }
+      {
+        id: generateId(),
+        name: "butter for cooking",
+        amount: "as",
+        unit: "needed",
+      },
     ],
     instructions: [
       "In a large bowl, whisk together flour, baking powder, salt, and sugar.",
@@ -200,31 +330,57 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Pour ¼ cup of batter for each pancake onto the hot surface.",
       "Cook until bubbles form on surface and edges look set, about 2-3 minutes.",
       "Flip and cook until golden brown on the other side, about 1-2 minutes more.",
-      "Serve immediately with butter and maple syrup, or keep warm in a 200°F oven."
+      "Serve immediately with butter and maple syrup, or keep warm in a 200°F oven.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Caesar Salad with Homemade Croutons",
-    description: "Classic Caesar salad with crispy romaine, parmesan, and golden croutons",
+    description:
+      "Classic Caesar salad with crispy romaine, parmesan, and golden croutons",
     category: "Lunch",
     prepTime: 20,
     cookTime: 10,
     servings: 4,
     ingredients: [
-      { id: generateId(), name: "romaine lettuce, chopped", amount: "2", unit: "large heads" },
-      { id: generateId(), name: "Parmesan cheese, grated", amount: "¾", unit: "cup" },
-      { id: generateId(), name: "day-old bread, cubed", amount: "3", unit: "cups" },
+      {
+        id: generateId(),
+        name: "romaine lettuce, chopped",
+        amount: "2",
+        unit: "large heads",
+      },
+      {
+        id: generateId(),
+        name: "Parmesan cheese, grated",
+        amount: "¾",
+        unit: "cup",
+      },
+      {
+        id: generateId(),
+        name: "day-old bread, cubed",
+        amount: "3",
+        unit: "cups",
+      },
       { id: generateId(), name: "olive oil", amount: "3", unit: "tbsp" },
-      { id: generateId(), name: "garlic cloves, minced", amount: "2", unit: "" },
+      {
+        id: generateId(),
+        name: "garlic cloves, minced",
+        amount: "2",
+        unit: "",
+      },
       { id: generateId(), name: "mayonnaise", amount: "½", unit: "cup" },
       { id: generateId(), name: "lemon juice", amount: "2", unit: "tbsp" },
-      { id: generateId(), name: "Worcestershire sauce", amount: "1", unit: "tsp" },
+      {
+        id: generateId(),
+        name: "Worcestershire sauce",
+        amount: "1",
+        unit: "tsp",
+      },
       { id: generateId(), name: "Dijon mustard", amount: "1", unit: "tsp" },
       { id: generateId(), name: "anchovy paste", amount: "1", unit: "tsp" },
-      { id: generateId(), name: "black pepper", amount: "½", unit: "tsp" }
+      { id: generateId(), name: "black pepper", amount: "½", unit: "tsp" },
     ],
     instructions: [
       "Preheat oven to 400°F (200°C).",
@@ -236,15 +392,16 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "In a large bowl, toss lettuce with dressing until well coated.",
       "Add half the Parmesan cheese and toss again.",
       "Top with croutons and remaining Parmesan cheese.",
-      "Serve immediately while croutons are still crispy."
+      "Serve immediately while croutons are still crispy.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Beef Tacos with Fresh Salsa",
-    description: "Juicy seasoned ground beef tacos topped with vibrant homemade salsa",
+    description:
+      "Juicy seasoned ground beef tacos topped with vibrant homemade salsa",
     category: "Dinner",
     prepTime: 20,
     cookTime: 15,
@@ -254,14 +411,34 @@ export const SAMPLE_RECIPES: Recipe[] = [
       { id: generateId(), name: "taco seasoning", amount: "1", unit: "packet" },
       { id: generateId(), name: "water", amount: "¾", unit: "cup" },
       { id: generateId(), name: "corn tortillas", amount: "12", unit: "small" },
-      { id: generateId(), name: "tomatoes, diced", amount: "3", unit: "medium" },
-      { id: generateId(), name: "white onion, finely diced", amount: "½", unit: "small" },
+      {
+        id: generateId(),
+        name: "tomatoes, diced",
+        amount: "3",
+        unit: "medium",
+      },
+      {
+        id: generateId(),
+        name: "white onion, finely diced",
+        amount: "½",
+        unit: "small",
+      },
       { id: generateId(), name: "jalapeño, minced", amount: "1", unit: "" },
-      { id: generateId(), name: "fresh cilantro, chopped", amount: "¼", unit: "cup" },
+      {
+        id: generateId(),
+        name: "fresh cilantro, chopped",
+        amount: "¼",
+        unit: "cup",
+      },
       { id: generateId(), name: "lime juice", amount: "2", unit: "tbsp" },
       { id: generateId(), name: "shredded lettuce", amount: "2", unit: "cups" },
-      { id: generateId(), name: "Mexican cheese blend", amount: "1", unit: "cup" },
-      { id: generateId(), name: "sour cream", amount: "½", unit: "cup" }
+      {
+        id: generateId(),
+        name: "Mexican cheese blend",
+        amount: "1",
+        unit: "cup",
+      },
+      { id: generateId(), name: "sour cream", amount: "½", unit: "cup" },
     ],
     instructions: [
       "For salsa, combine diced tomatoes, onion, jalapeño, cilantro, and lime juice in a bowl. Season with salt and set aside.",
@@ -270,30 +447,56 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Warm tortillas in a dry skillet for 30 seconds per side, or wrap in damp paper towels and microwave for 30 seconds.",
       "Set up taco bar with warmed tortillas, seasoned beef, fresh salsa, lettuce, cheese, and sour cream.",
       "Let everyone assemble their own tacos with desired toppings.",
-      "Serve with lime wedges and additional hot sauce if desired."
+      "Serve with lime wedges and additional hot sauce if desired.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Lemon Bars",
-    description: "Tangy lemon custard on a buttery shortbread crust, dusted with powdered sugar",
+    description:
+      "Tangy lemon custard on a buttery shortbread crust, dusted with powdered sugar",
     category: "Dessert",
     prepTime: 15,
     cookTime: 45,
     servings: 16,
     ingredients: [
-      { id: generateId(), name: "all-purpose flour", amount: "2", unit: "cups" },
+      {
+        id: generateId(),
+        name: "all-purpose flour",
+        amount: "2",
+        unit: "cups",
+      },
       { id: generateId(), name: "powdered sugar", amount: "½", unit: "cup" },
       { id: generateId(), name: "salt", amount: "¼", unit: "tsp" },
-      { id: generateId(), name: "cold butter, cubed", amount: "1", unit: "cup" },
+      {
+        id: generateId(),
+        name: "cold butter, cubed",
+        amount: "1",
+        unit: "cup",
+      },
       { id: generateId(), name: "large eggs", amount: "4", unit: "" },
-      { id: generateId(), name: "granulated sugar", amount: "1¾", unit: "cups" },
+      {
+        id: generateId(),
+        name: "granulated sugar",
+        amount: "1¾",
+        unit: "cups",
+      },
       { id: generateId(), name: "fresh lemon juice", amount: "⅓", unit: "cup" },
       { id: generateId(), name: "lemon zest", amount: "2", unit: "tbsp" },
-      { id: generateId(), name: "all-purpose flour", amount: "3", unit: "tbsp" },
-      { id: generateId(), name: "powdered sugar for dusting", amount: "¼", unit: "cup" }
+      {
+        id: generateId(),
+        name: "all-purpose flour",
+        amount: "3",
+        unit: "tbsp",
+      },
+      {
+        id: generateId(),
+        name: "powdered sugar for dusting",
+        amount: "¼",
+        unit: "cup",
+      },
     ],
     instructions: [
       "Preheat oven to 350°F (175°C). Line a 9x13 inch pan with parchment paper.",
@@ -305,27 +508,43 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Pour lemon mixture over hot crust and return to oven.",
       "Bake for 22-25 minutes until filling is set and lightly golden on top.",
       "Cool completely in pan, then dust with powdered sugar.",
-      "Cut into squares and serve. Store covered in refrigerator."
+      "Cut into squares and serve. Store covered in refrigerator.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Caprese Grilled Cheese",
-    description: "Elevated grilled cheese with fresh mozzarella, tomatoes, and basil",
+    description:
+      "Elevated grilled cheese with fresh mozzarella, tomatoes, and basil",
     category: "Lunch",
     prepTime: 10,
     cookTime: 8,
     servings: 2,
     ingredients: [
-      { id: generateId(), name: "sourdough bread", amount: "4", unit: "slices" },
-      { id: generateId(), name: "fresh mozzarella, sliced", amount: "4", unit: "oz" },
+      {
+        id: generateId(),
+        name: "sourdough bread",
+        amount: "4",
+        unit: "slices",
+      },
+      {
+        id: generateId(),
+        name: "fresh mozzarella, sliced",
+        amount: "4",
+        unit: "oz",
+      },
       { id: generateId(), name: "large tomato, sliced", amount: "1", unit: "" },
       { id: generateId(), name: "fresh basil leaves", amount: "8", unit: "" },
       { id: generateId(), name: "butter, softened", amount: "2", unit: "tbsp" },
       { id: generateId(), name: "balsamic glaze", amount: "1", unit: "tbsp" },
-      { id: generateId(), name: "salt and pepper", amount: "to", unit: "taste" }
+      {
+        id: generateId(),
+        name: "salt and pepper",
+        amount: "to",
+        unit: "taste",
+      },
     ],
     instructions: [
       "Slice tomato into ¼-inch thick rounds and season with salt and pepper. Let drain on paper towels for 5 minutes.",
@@ -335,31 +554,47 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Heat a skillet over medium-low heat.",
       "Cook sandwiches for 3-4 minutes per side, pressing gently, until golden brown and cheese melts.",
       "Let cool for 1 minute before cutting diagonally.",
-      "Serve immediately while cheese is still melty."
+      "Serve immediately while cheese is still melty.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Honey Garlic Salmon",
-    description: "Perfectly glazed salmon with a sweet and savory honey garlic sauce",
+    description:
+      "Perfectly glazed salmon with a sweet and savory honey garlic sauce",
     category: "Dinner",
     prepTime: 10,
     cookTime: 15,
     servings: 4,
     ingredients: [
-      { id: generateId(), name: "salmon fillets", amount: "4", unit: "6 oz each" },
+      {
+        id: generateId(),
+        name: "salmon fillets",
+        amount: "4",
+        unit: "6 oz each",
+      },
       { id: generateId(), name: "honey", amount: "¼", unit: "cup" },
       { id: generateId(), name: "soy sauce", amount: "3", unit: "tbsp" },
-      { id: generateId(), name: "garlic cloves, minced", amount: "4", unit: "" },
-      { id: generateId(), name: "fresh ginger, grated", amount: "1", unit: "tbsp" },
+      {
+        id: generateId(),
+        name: "garlic cloves, minced",
+        amount: "4",
+        unit: "",
+      },
+      {
+        id: generateId(),
+        name: "fresh ginger, grated",
+        amount: "1",
+        unit: "tbsp",
+      },
       { id: generateId(), name: "rice vinegar", amount: "2", unit: "tbsp" },
       { id: generateId(), name: "sesame oil", amount: "1", unit: "tsp" },
       { id: generateId(), name: "red pepper flakes", amount: "¼", unit: "tsp" },
       { id: generateId(), name: "green onions, sliced", amount: "2", unit: "" },
       { id: generateId(), name: "sesame seeds", amount: "1", unit: "tbsp" },
-      { id: generateId(), name: "olive oil", amount: "2", unit: "tbsp" }
+      { id: generateId(), name: "olive oil", amount: "2", unit: "tbsp" },
     ],
     instructions: [
       "Pat salmon fillets dry and season with salt and pepper.",
@@ -371,29 +606,45 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "If salmon needs more cooking, transfer skillet to 400°F oven for 2-3 minutes.",
       "Remove from heat and let rest for 2 minutes.",
       "Garnish with sliced green onions and sesame seeds before serving.",
-      "Serve with steamed rice and vegetables."
+      "Serve with steamed rice and vegetables.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Avocado Toast with Poached Egg",
-    description: "Creamy avocado on crispy sourdough topped with a perfectly poached egg",
+    description:
+      "Creamy avocado on crispy sourdough topped with a perfectly poached egg",
     category: "Breakfast",
     prepTime: 10,
     cookTime: 5,
     servings: 2,
     ingredients: [
-      { id: generateId(), name: "sourdough bread", amount: "2", unit: "thick slices" },
+      {
+        id: generateId(),
+        name: "sourdough bread",
+        amount: "2",
+        unit: "thick slices",
+      },
       { id: generateId(), name: "ripe avocados", amount: "1", unit: "large" },
       { id: generateId(), name: "large eggs", amount: "2", unit: "" },
       { id: generateId(), name: "lemon juice", amount: "1", unit: "tbsp" },
-      { id: generateId(), name: "extra virgin olive oil", amount: "1", unit: "tbsp" },
-      { id: generateId(), name: "red pepper flakes", amount: "pinch", unit: "" },
+      {
+        id: generateId(),
+        name: "extra virgin olive oil",
+        amount: "1",
+        unit: "tbsp",
+      },
+      {
+        id: generateId(),
+        name: "red pepper flakes",
+        amount: "pinch",
+        unit: "",
+      },
       { id: generateId(), name: "sea salt", amount: "to", unit: "taste" },
       { id: generateId(), name: "black pepper", amount: "to", unit: "taste" },
-      { id: generateId(), name: "white vinegar", amount: "1", unit: "tbsp" }
+      { id: generateId(), name: "white vinegar", amount: "1", unit: "tbsp" },
     ],
     instructions: [
       "Fill a medium saucepan with water and bring to a gentle simmer. Add white vinegar.",
@@ -405,15 +656,16 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Remove eggs with a slotted spoon and drain briefly on paper towels.",
       "Spread mashed avocado generously on toasted bread.",
       "Top each toast with a poached egg.",
-      "Drizzle with olive oil, sprinkle with red pepper flakes, salt, and pepper. Serve immediately."
+      "Drizzle with olive oil, sprinkle with red pepper flakes, salt, and pepper. Serve immediately.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Chicken Noodle Soup",
-    description: "Comforting homemade soup with tender chicken, vegetables, and egg noodles",
+    description:
+      "Comforting homemade soup with tender chicken, vegetables, and egg noodles",
     category: "Soup",
     prepTime: 15,
     cookTime: 45,
@@ -422,15 +674,35 @@ export const SAMPLE_RECIPES: Recipe[] = [
       { id: generateId(), name: "chicken breasts", amount: "1", unit: "lb" },
       { id: generateId(), name: "chicken broth", amount: "8", unit: "cups" },
       { id: generateId(), name: "egg noodles", amount: "3", unit: "cups" },
-      { id: generateId(), name: "carrots, sliced", amount: "3", unit: "medium" },
+      {
+        id: generateId(),
+        name: "carrots, sliced",
+        amount: "3",
+        unit: "medium",
+      },
       { id: generateId(), name: "celery stalks, diced", amount: "3", unit: "" },
       { id: generateId(), name: "onion, diced", amount: "1", unit: "medium" },
-      { id: generateId(), name: "garlic cloves, minced", amount: "3", unit: "" },
+      {
+        id: generateId(),
+        name: "garlic cloves, minced",
+        amount: "3",
+        unit: "",
+      },
       { id: generateId(), name: "bay leaves", amount: "2", unit: "" },
       { id: generateId(), name: "dried thyme", amount: "1", unit: "tsp" },
-      { id: generateId(), name: "fresh parsley, chopped", amount: "¼", unit: "cup" },
+      {
+        id: generateId(),
+        name: "fresh parsley, chopped",
+        amount: "¼",
+        unit: "cup",
+      },
       { id: generateId(), name: "olive oil", amount: "2", unit: "tbsp" },
-      { id: generateId(), name: "salt and pepper", amount: "to", unit: "taste" }
+      {
+        id: generateId(),
+        name: "salt and pepper",
+        amount: "to",
+        unit: "taste",
+      },
     ],
     instructions: [
       "Heat olive oil in a large pot over medium heat. Season chicken with salt and pepper.",
@@ -443,30 +715,56 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Bring soup back to a boil and add egg noodles. Cook according to package directions.",
       "Return shredded chicken to pot and simmer for 2-3 minutes to heat through.",
       "Remove bay leaves, stir in fresh parsley, and season with salt and pepper to taste.",
-      "Serve hot with crackers or crusty bread."
+      "Serve hot with crackers or crusty bread.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Chocolate Lava Cake",
-    description: "Individual molten chocolate cakes with gooey centers - perfect for date night",
+    description:
+      "Individual molten chocolate cakes with gooey centers - perfect for date night",
     category: "Dessert",
     prepTime: 15,
     cookTime: 12,
     servings: 4,
     ingredients: [
-      { id: generateId(), name: "dark chocolate, chopped", amount: "4", unit: "oz" },
+      {
+        id: generateId(),
+        name: "dark chocolate, chopped",
+        amount: "4",
+        unit: "oz",
+      },
       { id: generateId(), name: "unsalted butter", amount: "4", unit: "tbsp" },
       { id: generateId(), name: "large eggs", amount: "2", unit: "" },
       { id: generateId(), name: "large egg yolks", amount: "2", unit: "" },
       { id: generateId(), name: "granulated sugar", amount: "¼", unit: "cup" },
-      { id: generateId(), name: "all-purpose flour", amount: "2", unit: "tbsp" },
+      {
+        id: generateId(),
+        name: "all-purpose flour",
+        amount: "2",
+        unit: "tbsp",
+      },
       { id: generateId(), name: "pinch of salt", amount: "1", unit: "" },
-      { id: generateId(), name: "butter for ramekins", amount: "1", unit: "tbsp" },
-      { id: generateId(), name: "cocoa powder for dusting", amount: "1", unit: "tbsp" },
-      { id: generateId(), name: "vanilla ice cream", amount: "4", unit: "scoops" }
+      {
+        id: generateId(),
+        name: "butter for ramekins",
+        amount: "1",
+        unit: "tbsp",
+      },
+      {
+        id: generateId(),
+        name: "cocoa powder for dusting",
+        amount: "1",
+        unit: "tbsp",
+      },
+      {
+        id: generateId(),
+        name: "vanilla ice cream",
+        amount: "4",
+        unit: "scoops",
+      },
     ],
     instructions: [
       "Preheat oven to 425°F (220°C). Butter four 6-oz ramekins and dust with cocoa powder.",
@@ -479,33 +777,64 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Edges should be firm but centers should still jiggle slightly when shaken.",
       "Let cool for 1 minute, then run a knife around edges to loosen.",
       "Invert each ramekin onto a plate and tap gently. Lift off ramekin.",
-      "Serve immediately with vanilla ice cream and dust with powdered sugar if desired."
+      "Serve immediately with vanilla ice cream and dust with powdered sugar if desired.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   },
   {
     id: generateId(),
     title: "Greek Chicken Bowls",
-    description: "Mediterranean-inspired bowls with marinated chicken, fresh vegetables, and tzatziki",
+    description:
+      "Mediterranean-inspired bowls with marinated chicken, fresh vegetables, and tzatziki",
     category: "Lunch",
     prepTime: 25,
     cookTime: 15,
     servings: 4,
     ingredients: [
-      { id: generateId(), name: "boneless chicken thighs", amount: "1½", unit: "lbs" },
+      {
+        id: generateId(),
+        name: "boneless chicken thighs",
+        amount: "1½",
+        unit: "lbs",
+      },
       { id: generateId(), name: "olive oil", amount: "¼", unit: "cup" },
       { id: generateId(), name: "lemon juice", amount: "2", unit: "tbsp" },
       { id: generateId(), name: "dried oregano", amount: "2", unit: "tsp" },
-      { id: generateId(), name: "garlic cloves, minced", amount: "3", unit: "" },
+      {
+        id: generateId(),
+        name: "garlic cloves, minced",
+        amount: "3",
+        unit: "",
+      },
       { id: generateId(), name: "quinoa", amount: "1", unit: "cup" },
       { id: generateId(), name: "cucumber, diced", amount: "1", unit: "large" },
-      { id: generateId(), name: "cherry tomatoes, halved", amount: "2", unit: "cups" },
-      { id: generateId(), name: "red onion, thinly sliced", amount: "½", unit: "small" },
+      {
+        id: generateId(),
+        name: "cherry tomatoes, halved",
+        amount: "2",
+        unit: "cups",
+      },
+      {
+        id: generateId(),
+        name: "red onion, thinly sliced",
+        amount: "½",
+        unit: "small",
+      },
       { id: generateId(), name: "kalamata olives", amount: "½", unit: "cup" },
-      { id: generateId(), name: "feta cheese, crumbled", amount: "½", unit: "cup" },
+      {
+        id: generateId(),
+        name: "feta cheese, crumbled",
+        amount: "½",
+        unit: "cup",
+      },
       { id: generateId(), name: "Greek yogurt", amount: "1", unit: "cup" },
-      { id: generateId(), name: "fresh dill, chopped", amount: "2", unit: "tbsp" }
+      {
+        id: generateId(),
+        name: "fresh dill, chopped",
+        amount: "2",
+        unit: "tbsp",
+      },
     ],
     instructions: [
       "Marinate chicken in 2 tbsp olive oil, lemon juice, oregano, and 2 minced garlic cloves for 15 minutes.",
@@ -516,9 +845,9 @@ export const SAMPLE_RECIPES: Recipe[] = [
       "Assemble bowls with quinoa as the base.",
       "Top with sliced chicken, cucumber, tomatoes, red onion, and olives.",
       "Sprinkle with feta cheese and drizzle with remaining olive oil.",
-      "Serve with tzatziki on the side and lemon wedges for extra brightness."
+      "Serve with tzatziki on the side and lemon wedges for extra brightness.",
     ],
     createdAt: new Date(),
-    updatedAt: new Date()
-  }
+    updatedAt: new Date(),
+  },
 ];

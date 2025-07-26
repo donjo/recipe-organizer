@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Recipe } from '@/lib/types';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, ArrowRight, Check, X } from '@phosphor-icons/react';
+import { useState } from "react";
+import { Recipe } from "@/lib/types";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { ArrowLeft, ArrowRight, Check, X } from "@phosphor-icons/react";
 
 interface CookingModeProps {
   recipe: Recipe | null;
@@ -69,7 +69,9 @@ export function CookingMode({ recipe, open, onClose }: CookingModeProps) {
             </div>
             <div className="text-right">
               <div className="text-sm text-muted-foreground">Progress</div>
-              <div className="text-lg font-semibold">{Math.round(progress)}%</div>
+              <div className="text-lg font-semibold">
+                {Math.round(progress)}%
+              </div>
             </div>
           </div>
 
@@ -88,7 +90,9 @@ export function CookingMode({ recipe, open, onClose }: CookingModeProps) {
                     <li key={ingredient.id} className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                       <span>
-                        <span className="font-medium">{ingredient.amount} {ingredient.unit}</span>{' '}
+                        <span className="font-medium">
+                          {ingredient.amount} {ingredient.unit}
+                        </span>{" "}
                         {ingredient.name}
                       </span>
                     </li>
@@ -108,10 +112,14 @@ export function CookingMode({ recipe, open, onClose }: CookingModeProps) {
                     variant="outline"
                     size="sm"
                     onClick={() => toggleStepComplete(currentStep)}
-                    className={completedSteps.has(currentStep) ? 'bg-primary text-primary-foreground' : ''}
+                    className={completedSteps.has(currentStep)
+                      ? "bg-primary text-primary-foreground"
+                      : ""}
                   >
                     <Check size={16} />
-                    {completedSteps.has(currentStep) ? 'Completed' : 'Mark Complete'}
+                    {completedSteps.has(currentStep)
+                      ? "Completed"
+                      : "Mark Complete"}
                   </Button>
                 </div>
               </CardHeader>
@@ -135,23 +143,25 @@ export function CookingMode({ recipe, open, onClose }: CookingModeProps) {
                   onClick={() => setCurrentStep(index)}
                   className={`w-full text-left p-3 rounded-lg border transition-colors ${
                     index === currentStep
-                      ? 'border-primary bg-primary/5'
+                      ? "border-primary bg-primary/5"
                       : completedSteps.has(index)
-                      ? 'border-green-200 bg-green-50'
-                      : 'border-border hover:bg-muted'
+                      ? "border-green-200 bg-green-50"
+                      : "border-border hover:bg-muted"
                   }`}
                 >
                   <div className="flex items-start gap-3">
                     <div
                       className={`flex items-center justify-center w-6 h-6 rounded-full text-xs font-medium shrink-0 ${
                         completedSteps.has(index)
-                          ? 'bg-green-500 text-white'
+                          ? "bg-green-500 text-white"
                           : index === currentStep
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-muted-foreground'
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-muted text-muted-foreground"
                       }`}
                     >
-                      {completedSteps.has(index) ? <Check size={12} /> : index + 1}
+                      {completedSteps.has(index)
+                        ? <Check size={12} />
+                        : index + 1}
                     </div>
                     <p className="text-sm leading-relaxed">{instruction}</p>
                   </div>
@@ -170,18 +180,23 @@ export function CookingMode({ recipe, open, onClose }: CookingModeProps) {
               <ArrowLeft size={16} />
               Previous
             </Button>
-            
-            {currentStep === totalSteps - 1 ? (
-              <Button onClick={handleClose} className="bg-green-600 hover:bg-green-700">
-                <Check size={16} />
-                Finish Cooking
-              </Button>
-            ) : (
-              <Button onClick={handleNext}>
-                Next
-                <ArrowRight size={16} />
-              </Button>
-            )}
+
+            {currentStep === totalSteps - 1
+              ? (
+                <Button
+                  onClick={handleClose}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  <Check size={16} />
+                  Finish Cooking
+                </Button>
+              )
+              : (
+                <Button onClick={handleNext}>
+                  Next
+                  <ArrowRight size={16} />
+                </Button>
+              )}
           </div>
         </div>
       </DialogContent>

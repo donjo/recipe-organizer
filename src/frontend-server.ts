@@ -1,14 +1,14 @@
-import { Hono } from '@hono/hono';
-import { serveStatic } from '@hono/hono/deno';
+import { Hono } from "@hono/hono";
+import { serveStatic } from "@hono/hono/deno";
 
 const app = new Hono();
 
 // Serve static files
-app.use('/src/*', serveStatic({ root: './' }));
-app.use('/node_modules/*', serveStatic({ root: './' }));
+app.use("/src/*", serveStatic({ root: "./" }));
+app.use("/node_modules/*", serveStatic({ root: "./" }));
 
 // Serve the main HTML with React setup
-app.get('/', (c) => {
+app.get("/", (c) => {
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -147,16 +147,16 @@ app.get('/', (c) => {
   </script>
 </body>
 </html>`;
-  
+
   return c.html(html);
 });
 
 // Handle all routes for SPA
-app.get('/*', (c) => {
-  return c.redirect('/');
+app.get("/*", (c) => {
+  return c.redirect("/");
 });
 
-const port = parseInt(Deno.env.get('FRONTEND_PORT') || '5173');
+const port = parseInt(Deno.env.get("FRONTEND_PORT") || "5173");
 
 console.log(`🌐 Frontend server running at http://localhost:${port}`);
 console.log(`🔗 Connect to API at http://localhost:3001`);

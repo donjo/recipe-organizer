@@ -2,7 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import deno from "@deno/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
-import { resolve } from 'node:path';
+import { resolve } from "node:path";
+import process from "node:process";
 
 const projectRoot = process.env.PROJECT_ROOT || import.meta.dirname;
 
@@ -18,7 +19,7 @@ export default defineConfig({
     },
   },
   plugins: [
-    react(), 
+    react(),
     deno(),
     tailwindcss(),
   ],
@@ -27,7 +28,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': resolve(projectRoot, 'src')
-    }
+      "@": resolve(projectRoot, "src"),
+    },
   },
 });

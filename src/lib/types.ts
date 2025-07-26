@@ -20,14 +20,14 @@ export interface Ingredient {
 }
 
 export const RECIPE_CATEGORIES = [
-  'Breakfast',
-  'Lunch', 
-  'Dinner',
-  'Dessert',
-  'Appetizer',
-  'Snack',
-  'Beverage',
-  'Other'
+  "Breakfast",
+  "Lunch",
+  "Dinner",
+  "Dessert",
+  "Appetizer",
+  "Snack",
+  "Beverage",
+  "Other",
 ] as const;
 
 export type RecipeCategory = typeof RECIPE_CATEGORIES[number];

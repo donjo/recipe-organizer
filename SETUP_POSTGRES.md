@@ -62,6 +62,7 @@ Since you're migrating from a Vite/React setup to Deno, you'll need to:
 2. Or continue using Vite for the frontend and create a Deno API backend
 
 For now, the database layer is ready. You can:
+
 - Use the `RecipeRepository` class directly in a Deno backend API
 - Create REST endpoints that your React frontend can call
 - Or fully migrate to Deno for both frontend and backend
@@ -72,14 +73,15 @@ You can test your database setup by creating a simple test script:
 
 ```typescript
 // test-db.ts
-import { RecipeRepository } from './src/db/recipe-repository.ts';
+import { RecipeRepository } from "./src/db/recipe-repository.ts";
 
 const repo = new RecipeRepository();
 const recipes = await repo.getAllRecipes();
-console.log('Connected! Found', recipes.length, 'recipes');
+console.log("Connected! Found", recipes.length, "recipes");
 ```
 
 Run it with:
+
 ```bash
 deno run --allow-net --allow-read --allow-env test-db.ts
 ```
@@ -87,7 +89,9 @@ deno run --allow-net --allow-read --allow-env test-db.ts
 ## Next Steps
 
 1. Create a REST API using Deno to serve your recipe data
-2. Update your React frontend to fetch data from the API instead of using local storage
+2. Update your React frontend to fetch data from the API instead of using local
+   storage
 3. Or migrate the entire frontend to Deno
 
-The database layer is now ready to store and retrieve your recipes from PostgreSQL!
+The database layer is now ready to store and retrieve your recipes from
+PostgreSQL!
