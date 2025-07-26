@@ -3,8 +3,11 @@ import { PostgresJSDialect } from 'kysely-postgres-js';
 import postgres from 'postgres';
 import { load } from '@std/dotenv';
 
-// Load environment variables with allowEmptyValues for local dev
-await load({ allowEmptyValues: true });
+// Load environment variables only in development
+// In production (Deno Deploy), env vars are already available
+if (Deno.env.get('DENO_DEPLOYMENT_ID') === undefined) {
+  await load({ export: true });
+}
 
 // Database table types
 export interface RecipeTable {
