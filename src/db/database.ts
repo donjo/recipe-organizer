@@ -1,6 +1,6 @@
 import { Kysely } from 'kysely';
-import { PostgresJSDialect } from 'kysely-postgres-js';
-import postgres from 'postgres';
+import { PostgresDialect } from 'kysely';
+import pg from 'pg';
 import { load } from '@std/dotenv';
 
 // Load environment variables only in development
@@ -77,35 +77,19 @@ if (!connectionString) {
 // Neon requires SSL connections in production
 const isProduction = Deno.env.get('DENO_DEPLOYMENT_ID') !== undefined;
 
-// Configure SSL for production (Neon requires SSL)
-if (isProduction) {
-  console.log('🔐 Setting up SSL for Neon production database');
-  
-  // Ensure sslmode=require is in the connection string
-  if (!connectionString.includes('sslmode=')) {
-    if (connectionString.includes('?')) {
-      connectionString += '&sslmode=require';
-    } else {
-      connectionString += '?sslmode=require';
-    }
-    console.log('🔗 Added sslmode=require to connection string');
-  } else {
-    console.log('🔗 Connection string already has SSL mode configured');
-  }
-}
+// Create pg pool - this is what works with Neon in Deploy
+console.log('🔗 Creating pg connection pool');
 
-const postgresConfig = {
-  max: 10,
-  // Let the connection string handle SSL configuration
-};
+// For pg library, we can use the simple approach that works
+const pool = new pg.Pool({
+  connectionString,
+  // pg library handles SSL automatically with Neon
+});
 
-console.log('🔐 SSL config: Using connection string parameters');
-
-console.log('🔗 Final connection setup complete');
-const sql = postgres(connectionString, postgresConfig);
+console.log('🔗 Pool created, setting up Kysely with PostgresDialect');
 
 export const db = new Kysely<Database>({
-  dialect: new PostgresJSDialect({
-    postgres: sql,
+  dialect: new PostgresDialect({
+    pool,
   }),
 });
