@@ -18,8 +18,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select.tsx";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.tsx";
-import { Plus, Trash } from "@phosphor-icons/react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card.tsx";
 
 interface RecipeFormProps {
   recipe?: Recipe;
@@ -135,181 +139,234 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{recipe ? "Edit Recipe" : "Add New Recipe"}</DialogTitle>
+          <DialogTitle className="text-xl font-semibold">
+            {recipe ? "Edit Recipe" : "Add New Recipe"}
+          </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-6">
           {/* Basic Info */}
           <div className="space-y-4">
-            <div>
-              <Label htmlFor="title">Recipe Title</Label>
+            <div className="space-y-2">
+              <Label htmlFor="title" className="text-sm font-medium">
+                Recipe Title
+              </Label>
               <Input
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter recipe title"
+                className="h-10"
               />
             </div>
 
-            <div>
-              <Label htmlFor="description">Description (Optional)</Label>
+            <div className="space-y-2">
+              <Label htmlFor="description" className="text-sm font-medium">
+                Description{" "}
+                <span className="text-muted-foreground font-normal">
+                  (Optional)
+                </span>
+              </Label>
               <Textarea
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Brief description of the recipe"
                 rows={2}
+                className="resize-none"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="category">Category</Label>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="category" className="text-sm font-medium">
+                  Category
+                </Label>
                 <Select value={category} onValueChange={setCategory}>
-                  <SelectTrigger id="category">
+                  <SelectTrigger id="category" className="h-10">
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
                     {RECIPE_CATEGORIES.map((cat) => (
-                      <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                      <SelectItem key={cat} value={cat}>
+                        {cat}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
 
-              <div>
-                <Label htmlFor="servings">Servings</Label>
+              <div className="space-y-2">
+                <Label htmlFor="servings" className="text-sm font-medium">
+                  Servings
+                </Label>
                 <Input
                   id="servings"
                   type="number"
                   min="1"
                   value={servings}
                   onChange={(e) => setServings(e.target.value)}
-                  placeholder="Number of servings"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="prep-time">Prep Time (minutes)</Label>
-                <Input
-                  id="prep-time"
-                  type="number"
-                  min="0"
-                  value={prepTime}
-                  onChange={(e) => setPrepTime(e.target.value)}
-                  placeholder="Preparation time"
+                  placeholder="4"
+                  className="h-10"
                 />
               </div>
 
-              <div>
-                <Label htmlFor="cook-time">Cook Time (minutes)</Label>
-                <Input
-                  id="cook-time"
-                  type="number"
-                  min="0"
-                  value={cookTime}
-                  onChange={(e) => setCookTime(e.target.value)}
-                  placeholder="Cooking time"
-                />
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">
+                  Time (minutes)
+                </Label>
+                <div className="grid grid-cols-2 gap-2">
+                  <Input
+                    id="prep-time"
+                    type="number"
+                    min="0"
+                    value={prepTime}
+                    onChange={(e) => setPrepTime(e.target.value)}
+                    placeholder="Prep"
+                    className="h-10"
+                  />
+                  <Input
+                    id="cook-time"
+                    type="number"
+                    min="0"
+                    value={cookTime}
+                    onChange={(e) => setCookTime(e.target.value)}
+                    placeholder="Cook"
+                    className="h-10"
+                  />
+                </div>
               </div>
             </div>
           </div>
 
           {/* Ingredients */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Ingredients</CardTitle>
+          <Card variant="compact">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base font-medium">
+                Ingredients
+              </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              {ingredients.map((ingredient, index) => (
-                <div key={ingredient.id} className="flex gap-2">
-                  <Input
-                    placeholder="Amount"
-                    value={ingredient.amount}
-                    onChange={(e) =>
-                      updateIngredient(index, "amount", e.target.value)}
-                    className="w-20"
-                  />
-                  <Input
-                    placeholder="Unit"
-                    value={ingredient.unit}
-                    onChange={(e) =>
-                      updateIngredient(index, "unit", e.target.value)}
-                    className="w-20"
-                  />
-                  <Input
-                    placeholder="Ingredient name"
-                    value={ingredient.name}
-                    onChange={(e) =>
-                      updateIngredient(index, "name", e.target.value)}
-                    className="flex-1"
-                  />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() =>
-                      removeIngredient(index)}
-                    disabled={ingredients.length === 1}
-                  >
-                    <Trash size={16} />
-                  </Button>
-                </div>
-              ))}
-              <Button variant="outline" size="sm" onClick={addIngredient}>
-                <Plus size={16} />
-                Add Ingredient
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                {ingredients.map((ingredient, index) => (
+                  <div key={ingredient.id} className="flex gap-2 items-center">
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-muted text-muted-foreground text-xs font-medium shrink-0">
+                      {index + 1}
+                    </div>
+                    <div className="flex-1 grid grid-cols-4 gap-2">
+                      <Input
+                        placeholder="1"
+                        value={ingredient.amount}
+                        onChange={(e) =>
+                          updateIngredient(index, "amount", e.target.value)}
+                        className="h-9 text-sm"
+                      />
+                      <Input
+                        placeholder="cup"
+                        value={ingredient.unit}
+                        onChange={(e) =>
+                          updateIngredient(index, "unit", e.target.value)}
+                        className="h-9 text-sm"
+                      />
+                      <Input
+                        placeholder="Ingredient name"
+                        value={ingredient.name}
+                        onChange={(e) =>
+                          updateIngredient(index, "name", e.target.value)}
+                        className="h-9 text-sm col-span-2"
+                      />
+                    </div>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() =>
+                        removeIngredient(index)}
+                      disabled={ingredients.length === 1}
+                      className="h-9 w-9 p-0"
+                    >
+                      ×
+                    </Button>
+                  </div>
+                ))}
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={addIngredient}
+                size="sm"
+                className="h-9 text-sm"
+              >
+                + Add Ingredient
               </Button>
             </CardContent>
           </Card>
 
           {/* Instructions */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Instructions</CardTitle>
+          <Card variant="compact">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base font-medium">
+                Instructions
+              </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              {instructions.map((instruction, index) => (
-                <div key={index} className="flex gap-2">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-medium shrink-0 mt-1">
-                    {index + 1}
+            <CardContent className="space-y-6">
+              <div className="space-y-3">
+                {instructions.map((instruction, index) => (
+                  <div key={index} className="flex gap-3 items-start">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-full bg-primary text-primary-foreground text-sm font-semibold shrink-0 mt-1">
+                      {index + 1}
+                    </div>
+                    <div className="flex-1 flex gap-2">
+                      <Textarea
+                        placeholder={`Describe step ${index + 1}...`}
+                        value={instruction}
+                        onChange={(e) =>
+                          updateInstruction(index, e.target.value)}
+                        rows={2}
+                        className="flex-1 text-sm resize-none"
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() =>
+                          removeInstruction(index)}
+                        disabled={instructions.length === 1}
+                        className="h-9 w-9 p-0 mt-1"
+                      >
+                        ×
+                      </Button>
+                    </div>
                   </div>
-                  <Textarea
-                    placeholder={`Step ${index + 1} instructions`}
-                    value={instruction}
-                    onChange={(e) =>
-                      updateInstruction(index, e.target.value)}
-                    rows={2}
-                    className="flex-1"
-                  />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() =>
-                      removeInstruction(index)}
-                    disabled={instructions.length === 1}
-                    className="mt-1"
-                  >
-                    <Trash size={16} />
-                  </Button>
-                </div>
-              ))}
-              <Button variant="outline" size="sm" onClick={addInstruction}>
-                <Plus size={16} />
-                Add Step
+                ))}
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={addInstruction}
+                size="sm"
+                className="h-9 text-sm"
+              >
+                + Add Step
               </Button>
             </CardContent>
           </Card>
         </div>
 
-        <div className="flex justify-end gap-2 pt-4">
-          <Button variant="outline" onClick={handleClose}>
+        <div className="flex justify-end gap-3 pt-6 border-t">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleClose}
+          >
             Cancel
           </Button>
-          <Button onClick={handleSave}>
+          <Button
+            type="button"
+            onClick={handleSave}
+          >
             {recipe ? "Update Recipe" : "Save Recipe"}
           </Button>
         </div>

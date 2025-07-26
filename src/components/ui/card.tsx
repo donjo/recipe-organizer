@@ -2,12 +2,18 @@ import { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils.ts";
 
-function Card({ className, ...props }: ComponentProps<"div">) {
+interface CardProps extends ComponentProps<"div"> {
+  variant?: "default" | "compact";
+}
+
+function Card({ className, variant = "default", ...props }: CardProps) {
   return (
     <div
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
+        "bg-card text-card-foreground flex flex-col rounded-xl border shadow-sm",
+        variant === "default" && "gap-6 py-6",
+        variant === "compact" && "gap-2 py-4",
         className,
       )}
       {...props}
