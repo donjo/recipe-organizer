@@ -5,7 +5,6 @@ import { RecipeRepository } from './db/recipe-repository.ts';
 import { Recipe } from './lib/types.ts';
 
 const app = new Hono();
-const recipeRepo = new RecipeRepository();
 
 // Enable CORS for all routes
 app.use('/*', cors());
@@ -16,6 +15,7 @@ const api = new Hono();
 // Get all recipes
 api.get('/recipes', async (c) => {
   try {
+    const recipeRepo = new RecipeRepository();
     const recipes = await recipeRepo.getAllRecipes();
     return c.json(recipes);
   } catch (error) {
@@ -27,6 +27,7 @@ api.get('/recipes', async (c) => {
 // Get single recipe
 api.get('/recipes/:id', async (c) => {
   try {
+    const recipeRepo = new RecipeRepository();
     const id = c.req.param('id');
     const recipe = await recipeRepo.getRecipeById(id);
     
@@ -44,6 +45,7 @@ api.get('/recipes/:id', async (c) => {
 // Create recipe
 api.post('/recipes', async (c) => {
   try {
+    const recipeRepo = new RecipeRepository();
     const body = await c.req.json<Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>>();
     const recipe = await recipeRepo.createRecipe(body);
     return c.json(recipe, 201);
@@ -56,6 +58,7 @@ api.post('/recipes', async (c) => {
 // Update recipe
 api.put('/recipes/:id', async (c) => {
   try {
+    const recipeRepo = new RecipeRepository();
     const id = c.req.param('id');
     const body = await c.req.json<Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>>();
     const recipe = await recipeRepo.updateRecipe(id, body);
@@ -69,6 +72,7 @@ api.put('/recipes/:id', async (c) => {
 // Delete recipe
 api.delete('/recipes/:id', async (c) => {
   try {
+    const recipeRepo = new RecipeRepository();
     const id = c.req.param('id');
     await recipeRepo.deleteRecipe(id);
     return c.json({ success: true });
@@ -81,6 +85,7 @@ api.delete('/recipes/:id', async (c) => {
 // Bulk create recipes (for sample data)
 api.post('/recipes/bulk', async (c) => {
   try {
+    const recipeRepo = new RecipeRepository();
     const recipes = await c.req.json<Recipe[]>();
     
     for (const recipe of recipes) {
@@ -102,47 +107,24 @@ app.get('/health', (c) => {
 // Mount API routes
 app.route('/api', api);
 
-// In development, serve files from public and src
-const isDev = Deno.env.get('NODE_ENV') !== 'production';
+// Serve static assets (JS, CSS, images, etc.)
+app.use('/assets/*', serveStatic({ root: './dist' }));
 
-if (isDev) {
-  // Serve static files from public folder
-  app.use('/public/*', serveStatic({ root: './public' }));
+// Serve index.html for all other routes (SPA routing)
+app.get('*', async (c) => {
+  // Skip if it's an API route
+  if (c.req.path.startsWith('/api') || c.req.path === '/health') {
+    return c.notFound();
+  }
   
-  // Serve the HTML file for the root route
-  app.get('/', async (c) => {
-    const html = await Deno.readTextFile('./public/index.html');
+  try {
+    const html = await Deno.readTextFile('./dist/index.html');
     return c.html(html);
-  });
-  
-  // Handle client-side routing - serve index.html for all non-API routes
-  app.get('/*', async (c) => {
-    const html = await Deno.readTextFile('./public/index.html');
-    return c.html(html);
-  });
-} else {
-  // In production, serve built files
-  // Serve static assets first (JS, CSS, images, etc.)
-  app.use('/assets/*', serveStatic({ root: './dist' }));
-  
-  // Serve index.html for all non-API, non-asset routes (SPA routing)
-  app.get('/*', async (c) => {
-    const path = c.req.path;
-    
-    // Skip API routes - they should be handled by the API router
-    if (path.startsWith('/api')) {
-      return c.notFound();
-    }
-    
-    try {
-      const html = await Deno.readTextFile('./dist/index.html');
-      return c.html(html);
-    } catch (error) {
-      console.error('Failed to serve index.html:', error);
-      return c.text('Frontend not built. Run "deno task build" first.', 404);
-    }
-  });
-}
+  } catch (error) {
+    console.error('Failed to serve index.html:', error);
+    return c.text('Frontend build not found', 404);
+  }
+});
 
 const port = parseInt(Deno.env.get('PORT') || '3000');
 
