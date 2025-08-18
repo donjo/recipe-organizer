@@ -149,7 +149,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
         <div className="space-y-6">
           {/* Basic Info */}
           <div className="space-y-4">
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Label htmlFor="title" className="text-sm font-medium">
                 Recipe Title
               </Label>
@@ -162,7 +162,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Label htmlFor="description" className="text-sm font-medium">
                 Description{" "}
                 <span className="text-muted-foreground font-normal">
@@ -180,7 +180,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <Label htmlFor="category" className="text-sm font-medium">
                   Category
                 </Label>
@@ -198,7 +198,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                 </Select>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <Label htmlFor="servings" className="text-sm font-medium">
                   Servings
                 </Label>
@@ -213,7 +213,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <Label className="text-sm font-medium">
                   Time (minutes)
                 </Label>
