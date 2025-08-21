@@ -13,6 +13,12 @@
       "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol", "Noto Color Emoji";
   }
+
+  /* Consistent placeholder styling for all inputs and textareas */
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-xs text-muted-foreground/60;
+  }
 }
 
 :root {

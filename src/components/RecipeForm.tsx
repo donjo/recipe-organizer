@@ -40,20 +40,24 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
   const [cookTime, setCookTime] = useState(recipe?.cookTime?.toString() || "");
   const [servings, setServings] = useState(recipe?.servings?.toString() || "");
   const [ingredients, setIngredients] = useState<Ingredient[]>(
-    recipe?.ingredients ||
-      [{ id: generateId(), name: "", amount: "", unit: "" }],
+    recipe?.ingredients || [
+      { id: generateId(), name: "", amount: "", unit: "" },
+    ],
   );
   const [instructions, setInstructions] = useState<string[]>(
     recipe?.instructions || [""],
   );
 
   const addIngredient = () => {
-    setIngredients([...ingredients, {
-      id: generateId(),
-      name: "",
-      amount: "",
-      unit: "",
-    }]);
+    setIngredients([
+      ...ingredients,
+      {
+        id: generateId(),
+        name: "",
+        amount: "",
+        unit: "",
+      },
+    ]);
   };
 
   const updateIngredient = (
@@ -140,17 +144,17 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">
+        <DialogHeader className="pb-6">
+          <DialogTitle className="text-2xl font-bold">
             {recipe ? "Edit Recipe" : "Add New Recipe"}
           </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-6">
+        <div className="space-y-8">
           {/* Basic Info */}
-          <div className="space-y-4">
-            <div className="space-y-3">
-              <Label htmlFor="title" className="text-sm font-medium">
+          <div className="space-y-5">
+            <div className="space-y-1.5">
+              <Label htmlFor="title" className="text-xs font-medium text-muted-foreground">
                 Recipe Title
               </Label>
               <Input
@@ -158,14 +162,14 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter recipe title"
-                className="h-10"
+                className="h-10 text-sm"
               />
             </div>
 
-            <div className="space-y-3">
-              <Label htmlFor="description" className="text-sm font-medium">
+            <div className="space-y-1.5">
+              <Label htmlFor="description" className="text-xs font-medium text-muted-foreground">
                 Description{" "}
-                <span className="text-muted-foreground font-normal">
+                <span className="font-normal opacity-60">
                   (Optional)
                 </span>
               </Label>
@@ -175,17 +179,17 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Brief description of the recipe"
                 rows={2}
-                className="resize-none"
+                className="resize-none text-sm"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-3">
-                <Label htmlFor="category" className="text-sm font-medium">
+              <div className="space-y-1.5">
+                <Label htmlFor="category" className="text-xs font-medium text-muted-foreground">
                   Category
                 </Label>
                 <Select value={category} onValueChange={setCategory}>
-                  <SelectTrigger id="category" className="h-10">
+                  <SelectTrigger id="category" className="h-10 text-sm">
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -198,8 +202,8 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                 </Select>
               </div>
 
-              <div className="space-y-3">
-                <Label htmlFor="servings" className="text-sm font-medium">
+              <div className="space-y-1.5">
+                <Label htmlFor="servings" className="text-xs font-medium text-muted-foreground">
                   Servings
                 </Label>
                 <Input
@@ -209,14 +213,12 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                   value={servings}
                   onChange={(e) => setServings(e.target.value)}
                   placeholder="4"
-                  className="h-10"
+                  className="h-10 text-sm"
                 />
               </div>
 
-              <div className="space-y-3">
-                <Label className="text-sm font-medium">
-                  Time (minutes)
-                </Label>
+              <div className="space-y-1.5">
+                <Label className="text-xs font-medium text-muted-foreground">Time (minutes)</Label>
                 <div className="grid grid-cols-2 gap-2">
                   <Input
                     id="prep-time"
@@ -225,7 +227,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                     value={prepTime}
                     onChange={(e) => setPrepTime(e.target.value)}
                     placeholder="Prep"
-                    className="h-10"
+                    className="h-10 text-sm"
                   />
                   <Input
                     id="cook-time"
@@ -234,7 +236,7 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
                     value={cookTime}
                     onChange={(e) => setCookTime(e.target.value)}
                     placeholder="Cook"
-                    className="h-10"
+                    className="h-10 text-sm"
                   />
                 </div>
               </div>
@@ -242,53 +244,53 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
           </div>
 
           {/* Ingredients */}
-          <Card variant="compact">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base font-medium">
-                Ingredients
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
+          <div className="space-y-3">
+            <h3 className="text-lg font-semibold">
+              Ingredients
+            </h3>
+            <Card variant="compact">
+              <CardContent className="space-y-4">
               <div className="space-y-2">
                 {ingredients.map((ingredient, index) => (
                   <div key={ingredient.id} className="flex gap-2 items-center">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-muted text-muted-foreground text-xs font-medium shrink-0">
-                      {index + 1}
-                    </div>
                     <div className="flex-1 grid grid-cols-4 gap-2">
                       <Input
                         placeholder="1"
                         value={ingredient.amount}
                         onChange={(e) =>
-                          updateIngredient(index, "amount", e.target.value)}
+                          updateIngredient(index, "amount", e.target.value)
+                        }
                         className="h-9 text-sm"
                       />
                       <Input
                         placeholder="cup"
                         value={ingredient.unit}
                         onChange={(e) =>
-                          updateIngredient(index, "unit", e.target.value)}
+                          updateIngredient(index, "unit", e.target.value)
+                        }
                         className="h-9 text-sm"
                       />
                       <Input
                         placeholder="Ingredient name"
                         value={ingredient.name}
                         onChange={(e) =>
-                          updateIngredient(index, "name", e.target.value)}
+                          updateIngredient(index, "name", e.target.value)
+                        }
                         className="h-9 text-sm col-span-2"
                       />
                     </div>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() =>
-                        removeIngredient(index)}
-                      disabled={ingredients.length === 1}
-                      className="h-9 w-9 p-0"
-                    >
-                      ×
-                    </Button>
+                    {ingredients.length > 1 && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeIngredient(index)}
+                        className="h-9 w-9 p-0"
+                      >
+                        ×
+                      </Button>
+                    )}
+                    {ingredients.length === 1 && <div className="w-9" />}
                   </div>
                 ))}
               </div>
@@ -301,43 +303,45 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
               >
                 + Add Ingredient
               </Button>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
 
           {/* Instructions */}
-          <Card variant="compact">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base font-medium">
-                Instructions
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-3">
+          <div className="space-y-3">
+            <h3 className="text-lg font-semibold">
+              Instructions
+            </h3>
+            <Card variant="compact">
+              <CardContent className="space-y-4">
+              <div className="space-y-4">
                 {instructions.map((instruction, index) => (
-                  <div key={index} className="flex gap-3 items-start">
-                    <div className="flex items-center justify-center w-7 h-7 rounded-full bg-primary text-primary-foreground text-sm font-semibold shrink-0 mt-1">
-                      {index + 1}
-                    </div>
-                    <div className="flex-1 flex gap-2">
+                  <div key={index} className="space-y-2">
+                    <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">
+                      Step {index + 1}
+                    </Label>
+                    <div className="flex gap-2">
                       <Textarea
                         placeholder={`Describe step ${index + 1}...`}
                         value={instruction}
                         onChange={(e) =>
-                          updateInstruction(index, e.target.value)}
+                          updateInstruction(index, e.target.value)
+                        }
                         rows={2}
                         className="flex-1 text-sm resize-none"
                       />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() =>
-                          removeInstruction(index)}
-                        disabled={instructions.length === 1}
-                        className="h-9 w-9 p-0 mt-1"
-                      >
-                        ×
-                      </Button>
+                      {instructions.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeInstruction(index)}
+                          className="h-9 w-9 p-0"
+                        >
+                          ×
+                        </Button>
+                      )}
+                      {instructions.length === 1 && <div className="w-9" />}
                     </div>
                   </div>
                 ))}
@@ -351,22 +355,16 @@ export function RecipeForm({ recipe, open, onClose, onSave }: RecipeFormProps) {
               >
                 + Add Step
               </Button>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
-        <div className="flex justify-end gap-3 pt-6 border-t">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleClose}
-          >
+        <div className="flex justify-end gap-3 pt-6 mt-2 border-t">
+          <Button type="button" variant="outline" onClick={handleClose}>
             Cancel
           </Button>
-          <Button
-            type="button"
-            onClick={handleSave}
-          >
+          <Button type="button" onClick={handleSave}>
             {recipe ? "Update Recipe" : "Save Recipe"}
           </Button>
         </div>
