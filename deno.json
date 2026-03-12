@@ -34,5 +34,11 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   },
-  "nodeModulesDir": "auto"
+  "nodeModulesDir": "auto",
+  "deploy": {
+    "org": "donjo",
+    "app": "light-deer-89",
+    "entrypoint": "src/server.ts",
+    "build": "deno task build"
+  }
 }
